@@ -1,6 +1,9 @@
 # Files and directories created by pub
 .dart_tool/
 .packages
+.vscode/
+.firebase/
+
 # Remove the following pattern if you wish to check in your lock file
 pubspec.lock
 firebase.json
@@ -8,7 +11,6 @@ analysis_options.yaml
 
 # Conventional directory for build outputs
 build/
-.vscode/
-.firebase/
+
 # Directory created by dartdoc
 doc/api/
