@@ -8,6 +8,7 @@ analysis_options.yaml
 
 # Conventional directory for build outputs
 build/
-
+.vscode/
+.firebase/
 # Directory created by dartdoc
 doc/api/
