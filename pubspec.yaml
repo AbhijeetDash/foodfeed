@@ -29,6 +29,6 @@ flutter:
   assets:
     - 'assets/fl.png'
   fonts:
-    - family: Raleway
+    - family: 'Raleway'
       fonts:
-        - asset: assets/fonts/RL.ttf
+        - asset: 'assets/fonts/RL.ttf'

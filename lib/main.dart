@@ -92,40 +92,40 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
               ListTile(
                 leading: Icon(
                   Icons.favorite,
-                  size: 30,
+                  size: 20,
                 ),
                 title: Text(
                   'Favourite',
-                  style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
+                  style: TextStyle(fontSize: 15, fontFamily: 'Raleway'),
                 ),
                 subtitle: Text('Find your liked Recepies!',
-                    style: TextStyle(fontSize: 20, fontFamily: 'Raleway')),
+                    style: TextStyle(fontSize: 12, fontFamily: 'Raleway')),
                 onTap: () {},
               ),
               ListTile(
                 leading: Icon(
                   Icons.low_priority,
-                  size: 30,
+                  size: 20,
                 ),
                 title: Text(
                   'Stats',
-                  style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
+                  style: TextStyle(fontSize: 15, fontFamily: 'Raleway'),
                 ),
                 subtitle: Text("Find who's liking your reciepies",
-                    style: TextStyle(fontSize: 20, fontFamily: 'Raleway')),
+                    style: TextStyle(fontSize: 12, fontFamily: 'Raleway')),
                 onTap: () {},
               ),
               ListTile(
                 leading: Icon(
                   Icons.new_releases,
-                  size: 30,
+                  size: 20,
                 ),
                 title: Text(
                   'New Recepie',
-                  style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
+                  style: TextStyle(fontSize: 15, fontFamily: 'Raleway'),
                 ),
                 subtitle: Text('Got new ideas? How about writing!',
-                    style: TextStyle(fontSize: 20, fontFamily: 'Raleway')),
+                    style: TextStyle(fontSize: 12, fontFamily: 'Raleway')),
                 onTap: () {},
               ),
               Padding(
@@ -336,6 +336,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                                           width: width * 0.4,
                                           height: height * 0.4,
                                           color: Colors.white,
+                                          
                                         ),
                                       ),
                                     )
@@ -351,7 +352,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                             child: Padding(
                               padding: EdgeInsets.only(left: 20, right: 20),
                             ),
-                          )
+                          ),
                         ],
                       ))))),
     );

@@ -16,7 +16,7 @@ class ThemeButton extends StatelessWidget {
         shape: StadiumBorder(),
         padding: EdgeInsets.all(2.0),
         onPressed: onPressed,
-        child: Text(title, style: TextStyle(color: Colors.white)),
+        child: Text(title, style: TextStyle(color: Colors.white, fontFamily: 'Raleway')),
       ),
     );   
   }
@@ -54,7 +54,7 @@ class TopThumb extends StatelessWidget {
                 ),
               ),
             ),
-            Text(topic, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w100, fontSize: 10, decoration: TextDecoration.none),)
+            Text(topic, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w100, fontSize: 10, decoration: TextDecoration.none, fontFamily: 'Raleway'),)
           ],
         ),
       ),
