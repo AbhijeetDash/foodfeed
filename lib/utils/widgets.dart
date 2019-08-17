@@ -3,9 +3,7 @@ import 'package:flutter_web/material.dart';
 class ThemeButton extends StatelessWidget {
   final GestureTapCallback onPressed;
   final String title;
-
   ThemeButton({@required this.onPressed, @required this.title});
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +14,7 @@ class ThemeButton extends StatelessWidget {
         shape: StadiumBorder(),
         padding: EdgeInsets.all(2.0),
         onPressed: onPressed,
-        child: Text(title, style: TextStyle(color: Colors.white, fontFamily: 'Raleway')),
+        child: Text(title, style: TextStyle(color: Colors.white,  )),
       ),
     );   
   }
@@ -25,9 +23,7 @@ class ThemeButton extends StatelessWidget {
 class TopThumb extends StatelessWidget {
   final String url;
   final String topic;
-
   TopThumb({@required this.url, @required this.topic});
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -54,7 +50,7 @@ class TopThumb extends StatelessWidget {
                 ),
               ),
             ),
-            Text(topic, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w100, fontSize: 10, decoration: TextDecoration.none, fontFamily: 'Raleway'),)
+            Text(topic, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w100, fontSize: 10, decoration: TextDecoration.none,  ),)
           ],
         ),
       ),
@@ -68,10 +64,7 @@ class Article extends StatelessWidget {
   final String heading;
   final String auther;
   final String sampletext;
-
-
   Article({@required this.url, @required this.heading, @required this.auther, @required this.sampletext});
-
   @override
   Widget build(BuildContext context) {
     Color likeColor = Colors.white;
@@ -108,11 +101,11 @@ class Article extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(padding: EdgeInsets.only(left: 8.0, top: 8.0),
-                        child: Text(heading, style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w100 , decoration: TextDecoration.none, fontFamily: 'Raleway')),
+                        child: Text(heading, style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w100 , decoration: TextDecoration.none,  )),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0, top: 4.0),
-                        child: Text(auther, style: TextStyle(color: Colors.grey[200], decoration: TextDecoration.none, fontSize: 12,fontFamily: 'Raleway', fontWeight: FontWeight.w100),),
+                        child: Text(auther, style: TextStyle(color: Colors.grey[200], decoration: TextDecoration.none, fontSize: 12,fontWeight: FontWeight.w100),),
                       ),
                       Container(
                         height: height*0.2,
@@ -123,7 +116,6 @@ class Article extends StatelessWidget {
                               color: Colors.white, 
                               decoration: TextDecoration.none, 
                               fontSize: 16,
-                              fontFamily: 'Raleway',
                               fontWeight: FontWeight.w100
                             )
                           ),
@@ -161,19 +153,19 @@ class Article extends StatelessWidget {
                       children: <Widget>[
                          Padding(
                            padding: const EdgeInsets.all(8.0),
-                           child: Text('More by Chefman', style: TextStyle(color: Colors.white, decoration: TextDecoration.none, fontSize: 24, fontWeight: FontWeight.w100,fontFamily: 'Raleway'),),
+                           child: Text('More by Chefman', style: TextStyle(color: Colors.white, decoration: TextDecoration.none, fontSize: 24, fontWeight: FontWeight.w100, ),),
                          ),
                          Padding(
                            padding: const EdgeInsets.all(8.0),
-                           child: Text('Ice-Creams', style: TextStyle(color: Colors.white, decoration: TextDecoration.none, fontSize: 18, fontWeight: FontWeight.w100,fontFamily: 'Raleway'),),
+                           child: Text('Ice-Creams', style: TextStyle(color: Colors.white, decoration: TextDecoration.none, fontSize: 18, fontWeight: FontWeight.w100, ),),
                          ),
                          Padding(
                            padding: const EdgeInsets.all(8.0),
-                           child: Text('Fast Food', style: TextStyle(color: Colors.white, decoration: TextDecoration.none, fontSize: 18, fontWeight: FontWeight.w100,fontFamily: 'Raleway'),),
+                           child: Text('Fast Food', style: TextStyle(color: Colors.white, decoration: TextDecoration.none, fontSize: 18, fontWeight: FontWeight.w100, ),),
                          ),
                          Padding(
                            padding: const EdgeInsets.all(8.0),
-                           child: Text('Piper Pizza', style: TextStyle(color: Colors.white, decoration: TextDecoration.none, fontSize: 18, fontWeight: FontWeight.w100,fontFamily: 'Raleway'),),
+                           child: Text('Piper Pizza', style: TextStyle(color: Colors.white, decoration: TextDecoration.none, fontSize: 18, fontWeight: FontWeight.w100, ),),
                          ),
                       ],
                     ),
@@ -185,5 +177,76 @@ class Article extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class MyDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    return Drawer(
+        elevation: 16.0,
+        child: Scrollbar(
+          child: ListView(
+            children: <Widget>[
+              Container(
+                height: height * 0.4,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage('https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=353&q=80'),
+                      fit: BoxFit.cover
+                    )
+                  ),
+                child: Container(
+                  decoration: BoxDecoration(color: Color.fromRGBO(0, 0, 0, 0.5)),
+                  child: Center(
+                    child: ListTile(
+                      title: CircleAvatar(
+                        radius: 50,
+                        child: Text('Food|Feed',style:TextStyle(fontSize: 50)),
+                      ),
+                    ),
+                  )
+                ),
+              ),
+              ListTile(
+                leading: Icon( Icons.favorite,size: 20),
+                title: Text('Favourite',style: TextStyle(fontSize: 15)),
+                subtitle: Text('Find your liked Recepies!',style: TextStyle(fontSize: 12)),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: Icon(Icons.low_priority,size: 20),
+                title: Text('Stats',style: TextStyle(fontSize: 15)),
+                subtitle: Text("Find who's liking your reciepies",style: TextStyle(fontSize: 12)),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: Icon(Icons.new_releases,size: 20),
+                title: Text('New Recepie',style: TextStyle(fontSize: 15)),
+                subtitle: Text('Got new ideas? How about writing!',style: TextStyle(fontSize: 12)),
+                onTap: () {},
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 50),
+                child: Container(
+                  height: 0.5,
+                  color: Colors.grey,
+                ),
+              ),
+              ThemeButton(
+                title: "Logout!",
+                onPressed: () {},
+              ),
+              Container(
+                height: 20,
+                child: Center(
+                  child: Text('Privacy policies || Terms of use',style: TextStyle(fontSize: 20,  ))\
+                )
+              ),
+            ],
+          ),
+        ),
+      );
   }
 }
