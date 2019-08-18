@@ -2,7 +2,6 @@ name: food_feed
 description: An app built using Flutter for web
 
 environment:
-  # You must be using Flutter >=1.5.0 or Dart >=2.3.0
   sdk: '>=2.3.0 <3.0.0'
 
 dependencies:
@@ -26,9 +25,3 @@ dependency_overrides:
 
 flutter:
   uses-material-design: true
-  assets:
-    - 'assets/fl.png'
-  fonts:
-    - family: 'Raleway'
-      fonts:
-        - asset: 'assets/fonts/'

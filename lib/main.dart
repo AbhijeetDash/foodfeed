@@ -5,6 +5,8 @@ import 'package:flutter_web/widgets.dart';
 import 'package:food_feed/src/sec.dart';
 import 'package:food_feed/utils/widgets.dart';
 
+import 'src/sec.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -45,11 +47,6 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
       controller.forward();
     });
     super.initState();
-    while(true){
-      Timer(Duration(seconds: 4), ()=>{
-
-      });
-    }
   }
 
   @override
@@ -62,9 +59,72 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-
+    int itemCount = 7;
     return Scaffold(
-      drawer: MyDrawer(),
+      drawer: Drawer(
+      elevation: 16.0,
+      child: Scrollbar(
+        child: ListView(
+          children: <Widget>[
+            Container(
+              height: height * 0.4,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage('https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=353&q=80'),
+                    fit: BoxFit.cover
+                  )
+                ),
+              child: Container(
+                decoration: BoxDecoration(color: Color.fromRGBO(0, 0, 0, 0.5)),
+                child: Center(
+                  child: ListTile(
+                    title: CircleAvatar(
+                      radius: 50,
+                      child: Text('Food|Feed',style:TextStyle(fontSize: 50)),
+                    ),
+                  ),
+                )
+              ),
+            ),
+            ListTile(
+              leading: Icon( Icons.favorite,size: 20),
+              title: Text('Favourite',style: TextStyle(fontSize: 15)),
+              subtitle: Text('Find your liked Recepies!',style: TextStyle(fontSize: 12)),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(Icons.low_priority,size: 20),
+              title: Text('Stats',style: TextStyle(fontSize: 15)),
+              subtitle: Text("Find who's liking your reciepies",style: TextStyle(fontSize: 12)),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(Icons.new_releases,size: 20),
+              title: Text('New Recepie',style: TextStyle(fontSize: 15)),
+              subtitle: Text('Got new ideas? How about writing!',style: TextStyle(fontSize: 12)),
+              onTap: () {},
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 50),
+              child: Container(
+                height: 0.5,
+                color: Colors.grey,
+              ),
+            ),
+            ThemeButton(
+              title: "Logout!",
+              onPressed: () {},
+            ),
+            Container(
+              height: 20,
+              child: Center(
+                child: Text('Privacy policies || Terms of use',style: TextStyle(fontSize: 20,  ))
+              )
+            ),
+          ],
+        ),
+      ),
+    ),
       body: Container(
         width: width,
         color: Colors.grey[800],
@@ -86,14 +146,10 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                     ),
                     elevation: 0.0,
                     actions: <Widget>[
-                      FadeTransition(
-                        opacity: animation,
-                        child: ThemeButton(
+                      ThemeButton(
                             title: "About", onPressed: () {}),
-                      ),
-                      FadeTransition(
-                        opacity: animation,
-                        child: ThemeButton(
+                      
+                       ThemeButton(
                             title: "Login",
                             onPressed: () {
                               Navigator.of(context).pushReplacement(
@@ -101,10 +157,8 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                                       builder: (context) =>
                                           Seq(name: "Login")));
                             }),
-                      ),
-                      FadeTransition(
-                        opacity: animation,
-                        child: ThemeButton(
+                      
+                      ThemeButton(
                             title: "Sign-up",
                             onPressed: () {
                               Navigator.of(context)
@@ -113,11 +167,9 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             name: "Join us",
                                           )));
                             }),
-                      ),
-                      FadeTransition(
-                          opacity: animation,
-                          child: ThemeButton(
-                              title: "Settings", onPressed: () {})),
+                      
+                       ThemeButton(
+                              title: "Settings", onPressed: () {}),
                     ],
                   ),
                   Container(
@@ -263,8 +315,36 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                     width: width,
                     height: height,
                     color: Colors.grey[200],
-                  
-                  ),
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: itemCount,
+                      itemBuilder: (context,i){
+                        if(i == 0){
+                          return Container(
+                            width: width*0.4,
+                            height: height,
+                            alignment: Alignment.center,
+                            child: Text('Dishes to Explore ->', style:TextStyle(color: Colors.black, fontSize: 30, fontStyle: FontStyle.italic))
+                          );
+                        } else if(i == itemCount-1){
+                          return Container(
+                            width: width*0.4,
+                            height: height,
+                            alignment: Alignment.center,
+                            child: Text("You've read everythin? \n Try cooking something!", style:TextStyle(color: Colors.black, fontSize: 30, fontStyle: FontStyle.italic))
+                          );
+                        } else {
+                          return Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Container(
+                            width: width*0.3,
+                            height: 400,
+                            color: Colors.black,
+                          ));
+                        }
+                      }
+                    ),
+                  )
                 ],
               )
             )
