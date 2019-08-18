@@ -324,14 +324,14 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                             width: width*0.4,
                             height: height,
                             alignment: Alignment.center,
-                            child: Text('Dishes to Explore ->', style:TextStyle(color: Colors.black, fontSize: 30, fontStyle: FontStyle.italic))
+                            child: Text('Dishes to Explore', style:TextStyle(color: Colors.black, fontSize: 30, fontStyle: FontStyle.italic), textAlign: TextAlign.center,)
                           );
                         } else if(i == itemCount-1){
                           return Container(
                             width: width*0.4,
                             height: height,
                             alignment: Alignment.center,
-                            child: Text("You've read everythin? \n Try cooking something!", style:TextStyle(color: Colors.black, fontSize: 30, fontStyle: FontStyle.italic))
+                            child: Text("You've read everythin?\nTry cooking something!", style:TextStyle(color: Colors.black, fontSize: 30, fontStyle: FontStyle.italic), textAlign: TextAlign.center,)
                           );
                         } else {
                           return Padding(
