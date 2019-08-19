@@ -334,13 +334,63 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                             child: Text("You've read everythin?\nTry cooking something!", style:TextStyle(color: Colors.black, fontSize: 30, fontStyle: FontStyle.italic), textAlign: TextAlign.center,)
                           );
                         } else {
-                          return Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Container(
-                            width: width*0.3,
-                            height: 400,
-                            color: Colors.black,
-                          ));
+                          return AspectRatio(
+                            aspectRatio: 1/1.5,
+                              child: Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Container(
+                                width: width*0.3,
+                                decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(30)
+                                ),
+                                child: Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                            'https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg'
+                                          ),
+                                          fit: BoxFit.cover
+                                        )
+                                      ),
+                                    ),
+                                    Column(
+                                      children: <Widget>[
+                                        Container(
+                                          alignment: Alignment.center,
+                                          width: 450,
+                                          height: ((height-10)*0.35),
+                                          decoration: BoxDecoration(
+                                            color: Colors.deepOrange,
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(200),
+                                              bottomRight: Radius.circular(200),
+                                            )
+                                          ),
+                                          child: Text("Title Hello World", style: TextStyle(fontSize: 30, fontStyle: FontStyle.italic),),
+                                        ),
+                                        Container(
+                                          height: ((height-10)*0.20),
+                                        ),
+                                        Container(
+                                          height: ((height-35)*0.45),
+                                          decoration: BoxDecoration(
+                                            color: Colors.deepOrange,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(150),
+                                              topRight: Radius.circular(150),
+                                            )
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ]
+                                ),
+                              )
+                            ),
+                          );
                         }
                       }
                     ),
