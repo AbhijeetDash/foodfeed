@@ -1,4 +1,5 @@
 import 'package:flutter_web/material.dart';
+import 'package:food_feed/src/article.dart';
 
 class ThemeButton extends StatelessWidget {
   final GestureTapCallback onPressed;
@@ -177,6 +178,70 @@ class Article extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MyListItem extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return AspectRatio(
+      aspectRatio: 1/1.5,
+        child: Padding(
+        padding: EdgeInsets.all(10),
+          child: FlatButton(
+            onPressed: (){
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Editor()));
+            },
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        'https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg'
+                      ),
+                      fit: BoxFit.cover
+                    )
+                  ),
+                ),
+                Column(
+                  children: <Widget>[
+                    Container(
+                      alignment: Alignment.center,
+                      width: 450,
+                      height: ((height-10)*0.35),
+                      decoration: BoxDecoration(
+                        color: Colors.deepOrange,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(200),
+                          bottomRight: Radius.circular(200),
+                        )
+                      ),
+                      child: Text("Title Hello World", style: TextStyle(fontSize: 30, fontStyle: FontStyle.italic),),
+                    ),
+                    Container(
+                      height: ((height-10)*0.20),
+                    ),
+                    Container(
+                      height: ((height-35)*0.45),
+                      decoration: BoxDecoration(
+                        color: Colors.deepOrange,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(150),
+                          topRight: Radius.circular(150),
+                        )
+                      ),
+                    ),
+                  ],
+                )
+              ]
+            ),
+          ),
+        
       ),
     );
   }
