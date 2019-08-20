@@ -1,5 +1,5 @@
 import 'package:flutter_web/material.dart';
-import 'package:food_feed/src/article.dart';
+import 'package:food_feed/src/read.dart';
 
 class ThemeButton extends StatelessWidget {
   final GestureTapCallback onPressed;
@@ -24,7 +24,9 @@ class ThemeButton extends StatelessWidget {
 class TopThumb extends StatelessWidget {
   final String url;
   final String topic;
-  TopThumb({@required this.url, @required this.topic});
+  final GestureTapCallback onPressed;
+
+  TopThumb({@required this.url, @required this.topic, @required this.onPressed});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,7 +49,7 @@ class TopThumb extends StatelessWidget {
                 child: RawMaterialButton(
                   splashColor: Colors.orange,
                   shape: CircleBorder(),
-                  onPressed: (){},
+                  onPressed: onPressed,
                 ),
               ),
             ),
@@ -184,6 +186,10 @@ class Article extends StatelessWidget {
 }
 
 class MyListItem extends StatelessWidget {
+
+  String url;
+  String title;
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -194,7 +200,7 @@ class MyListItem extends StatelessWidget {
         padding: EdgeInsets.all(10),
           child: FlatButton(
             onPressed: (){
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Editor()));
+               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Reader()));
             },
             child: Stack(
               children: <Widget>[
@@ -221,13 +227,15 @@ class MyListItem extends StatelessWidget {
                           bottomRight: Radius.circular(200),
                         )
                       ),
-                      child: Text("Title Hello World", style: TextStyle(fontSize: 30, fontStyle: FontStyle.italic),),
+                      child: Text("Title Hello World", style: TextStyle(fontSize: 30, fontStyle: FontStyle.italic, color: Colors.white),),
                     ),
                     Container(
                       height: ((height-10)*0.20),
                     ),
                     Container(
                       height: ((height-35)*0.45),
+                      width: 450,
+                      alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Colors.deepOrange,
                         borderRadius: BorderRadius.only(
@@ -235,6 +243,10 @@ class MyListItem extends StatelessWidget {
                           topRight: Radius.circular(150),
                         )
                       ),
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Text("Lorium Ipsum", style: TextStyle(color:Colors.white),)
+                      )
                     ),
                   ],
                 )
