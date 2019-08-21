@@ -39,6 +39,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
   ScrollController scrollController;
   AnimationController controller;
   Animation animation; 
+  bool searching = false;
 
   @override
   void initState() {
@@ -49,6 +50,14 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
       controller.forward();
     });
     super.initState();
+  }
+
+  Future<void> getResult() async {
+    Timer(Duration(seconds: 4),(){
+      setState(() {
+        searching = false;
+      });
+    });
   }
 
   @override
@@ -140,6 +149,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
               width: width * 0.3,
               child: ListView(
                 scrollDirection: Axis.vertical,
+                controller: scrollController,
                 children: <Widget>[
                   AppBar(
                     backgroundColor: Colors.deepOrange,
@@ -263,7 +273,13 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                                         maxHeight: 50,
                                         minHeight: 50),
                                     shape: CircleBorder(),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      setState(() {
+                                        searching = true;
+                                        scrollController.animateTo(height+50, curve:Curves.linear, duration: Duration(milliseconds: 500));
+                                        getResult().then((onValue){});
+                                      });
+                                    },
                                     child: Icon(Icons.search,
                                         color: Colors.white),
                                   ),
@@ -337,28 +353,47 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                     width: width,
                     height: height,
                     color: Colors.grey[200],
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: itemCount,
-                      itemBuilder: (context,i){
-                        if(i == 0){
-                          return Container(
-                            width: width*0.4,
-                            height: height,
-                            alignment: Alignment.center,
-                            child: Text('Dishes to Explore', style:TextStyle(color: Colors.black, fontSize: 30, fontStyle: FontStyle.italic), textAlign: TextAlign.center,)
-                          );
-                        } else if(i == itemCount-1){
-                          return Container(
-                            width: width*0.4,
-                            height: height,
-                            alignment: Alignment.center,
-                            child: Text("You've read everythin?\nTry cooking something!", style:TextStyle(color: Colors.black, fontSize: 30, fontStyle: FontStyle.italic), textAlign: TextAlign.center,)
-                          );
-                        } else {
-                          return MyListItem();
-                        }
-                      }
+                    child: Stack(
+                      children: <Widget>[
+                        ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: itemCount,
+                          itemBuilder: (context,i){
+                            if(i == 0){
+                              return Container(
+                                width: width*0.4,
+                                height: height,
+                                alignment: Alignment.center,
+                                child: Text('Dishes to Explore', style:TextStyle(color: Colors.black, fontSize: 30, fontStyle: FontStyle.italic), textAlign: TextAlign.center,)
+                              );
+                            } else if(i == itemCount-1){
+                              return Container(
+                                width: width*0.4,
+                                height: height,
+                                alignment: Alignment.center,
+                                child: Text("You've read everythin?\nTry cooking something!", style:TextStyle(color: Colors.black, fontSize: 30, fontStyle: FontStyle.italic), textAlign: TextAlign.center,)
+                              );
+                            } else {
+                              return MyListItem();
+                            }
+                          }
+                        ),
+                        searching?Container(
+                          width: width,
+                          height: height,
+                          alignment: Alignment.center,
+                          color: Colors.grey[800],
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation(Colors.white),
+                              ),
+                              Text("Loding Search Results", style: TextStyle(color: Colors.white),)
+                            ],
+                          ),
+                        ):Container()
+                      ],
                     ),
                   ),
                   Container(

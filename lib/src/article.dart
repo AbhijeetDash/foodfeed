@@ -1,10 +1,4 @@
-
-
-
-
-import 'dart:html' as prefix0;
 import 'dart:html';
-
 import 'package:flutter_web/material.dart';
 import 'package:food_feed/main.dart';
 import 'package:food_feed/utils/widgets.dart';
