@@ -186,14 +186,10 @@ class Article extends StatelessWidget {
 }
 
 class MyListItem extends StatelessWidget {
-
-  String url;
-  String title;
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    //double width = MediaQuery.of(context).size.width;
     return AspectRatio(
       aspectRatio: 1/1.5,
         child: Padding(
@@ -227,7 +223,7 @@ class MyListItem extends StatelessWidget {
                           bottomRight: Radius.circular(200),
                         )
                       ),
-                      child: Text("Title Hello World", style: TextStyle(fontSize: 30, fontStyle: FontStyle.italic, color: Colors.white),),
+                      child: Text("Wizzards", style: TextStyle(fontSize: 30, fontStyle: FontStyle.italic, color: Colors.white),),
                     ),
                     Container(
                       height: ((height-10)*0.20),
@@ -245,7 +241,7 @@ class MyListItem extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(10),
-                        child: Text("Lorium Ipsum", style: TextStyle(color:Colors.white),)
+                        child: Text("Lorem Ipsum is simply dummy\n text of the printing and typesetting industry\n.Lorem Ipsum has been the industry's standard\ndummy text ever since the 1500s", style: TextStyle(color:Colors.white),textAlign: TextAlign.center,)
                       )
                     ),
                   ],
