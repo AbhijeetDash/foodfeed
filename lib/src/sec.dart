@@ -1,26 +1,31 @@
 import 'package:flutter_web/material.dart';
 import 'package:food_feed/main.dart';
+import 'package:food_feed/utils/functions.dart';
 import 'package:food_feed/utils/widgets.dart';
 
 
 
 class Seq extends StatefulWidget {
-  final String name;
+  final String action;
 
-  Seq({@required this.name});
+  Seq({@required this.action});
 
   @override
-  _SeqState createState() => _SeqState(name: name);
+  _SeqState createState() => _SeqState(action: action);
 }
 
 class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
 
-  final String name;
+  final String action;
+  TextEditingController _email;
+  TextEditingController _password;
 
-  _SeqState({@required this.name});
+  _SeqState({@required this.action});
 
   @override
   void initState() {
+    _email = TextEditingController();
+    _password = TextEditingController();
     super.initState();
   }
   
@@ -66,11 +71,12 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(name, style: TextStyle(color: Colors.black, fontFamily: 'Raleway', fontWeight: FontWeight.w800, fontSize: 40)),
+                    child: Text(action, style: TextStyle(color: Colors.black, fontFamily: 'Raleway', fontWeight: FontWeight.w800, fontSize: 40)),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 100, right: 100, top: 12.0),
                     child: TextField(
+                      controller: _email,
                       decoration: InputDecoration(
                         hintText: "enter your Email"
                       ),
@@ -79,6 +85,7 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
                   Padding(
                     padding: const EdgeInsets.only(left: 100, right: 100, top: 12.0),
                     child: TextField(
+                      controller: _password,
                       obscureText: true,
                       decoration: InputDecoration(hintText: "enter your Password"),
                     ),
@@ -86,8 +93,10 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
                   Padding(
                     padding: const EdgeInsets.only(top: 25.0),
                     child: ThemeButton(
-                      title: name,
-                      onPressed: (){},
+                      title: action,
+                      onPressed: (){
+                        register(action,_email.text,_password.text).then((onValue){});
+                      },
                     ),
                   )
                 ],

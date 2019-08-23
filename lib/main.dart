@@ -172,7 +172,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          Seq(name: "Login")));
+                                          Seq(action: "Login")));
                             }),
                       
                       ThemeButton(
@@ -181,7 +181,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                               Navigator.of(context)
                                   .pushReplacement(MaterialPageRoute(
                                       builder: (context) => Seq(
-                                            name: "Join us",
+                                            action: "Join us",
                                           )));
                             }),
                       
