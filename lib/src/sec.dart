@@ -95,7 +95,7 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
                     child: ThemeButton(
                       title: action,
                       onPressed: (){
-                        register(action,_email.text,_password.text).then((onValue){});
+                        credent(action,_email.text,_password.text).then((onValue){});
                       },
                     ),
                   )
