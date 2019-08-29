@@ -19,6 +19,8 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
   final String action;
   TextEditingController _email;
   TextEditingController _password;
+  String errorEmail = "";
+  String errorPass = "";
 
   _SeqState({@required this.action});
 
@@ -28,11 +30,53 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
     _password = TextEditingController();
     super.initState();
   }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
+
+  int validate(String data, String type){
+    if(type == "email"){
+      if(data.isNotEmpty){
+        String a = data.substring(data.length - 10,data.length);
+        if(a == "@gmail.com" || a == "@yahoo.com"){
+          setState(() {
+            errorEmail = "";
+          });
+          return 0;
+        } else {
+          setState(() {
+           errorEmail = "Please check email";
+          });
+        }
+      } else {
+        setState(() {
+          errorEmail = "Wait, WHAT!";
+        });
+      }
+    }else if(type == "password"){
+      if(data.isNotEmpty){
+        setState(() {
+          errorPass = "";
+        });
+        return 0;
+      } else {
+        setState(() {
+          errorPass = "Are you out of your MIND!";
+        });
+      }
+    }
+    return 2;
+  }
   
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -77,17 +121,24 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
                     padding: const EdgeInsets.only(left: 100, right: 100, top: 12.0),
                     child: TextField(
                       controller: _email,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                        hintText: "enter your Email"
+                        hintText: "enter your Email",
+                        errorText: errorEmail
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 100, right: 100, top: 12.0),
                     child: TextField(
+                      keyboardType: TextInputType.text,
                       controller: _password,
                       obscureText: true,
-                      decoration: InputDecoration(hintText: "enter your Password"),
+                      focusNode: FocusNode(),
+                      decoration: InputDecoration(
+                        hintText: "enter your Password",
+                        errorText: errorPass
+                      ),
                     ),
                   ),
                   Padding(
@@ -95,7 +146,15 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
                     child: ThemeButton(
                       title: action,
                       onPressed: (){
-                        credent(action,_email.text,_password.text).then((onValue){});
+                        if(_email.text != null && _password.text != null){
+                          int i =validate(_email.text,"email");
+                          int k = validate(_password.text,"password");
+                          if(i == 0 && k == 0){
+                            credent(action,_email.text,_password.text).then((onValue){
+                            });
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MyHomePage(logs: true)));
+                          }
+                        }
                       },
                     ),
                   )

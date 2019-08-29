@@ -20,18 +20,19 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepOrange,
         primaryTextTheme: TextTheme(title: TextStyle( )),
       ),
-      home: MyHomePage(title: 'Food|Feed'),
+      home: MyHomePage(title: 'Food|Feed', logs: false),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key, this.title, @required this.logs}) : super(key: key);
   final String title;
+  final bool logs;
   @override
   State<StatefulWidget> createState() {
-    return MyPageState();
+    return MyPageState(logs: this.logs);
   }
 }
 
@@ -40,6 +41,9 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
   AnimationController controller;
   Animation animation; 
   bool searching = false;
+
+  final bool logs;
+  MyPageState({@required this.logs});
 
   @override
   void initState() {
@@ -71,6 +75,34 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     int itemCount = 7;
+
+    Widget logup;
+    if(logs == false){
+      setState(() {
+        logup = Container(
+          child: Row(
+            children: <Widget>[
+              ThemeButton(
+                title: "Login",
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>Seq(action: "Login")));
+                }
+              ),
+              ThemeButton(
+                title: "Sign-up",
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Seq(action: "Join us")));
+            }),
+            ],
+          ),
+        );
+      });
+    } else if(logs == true){
+      setState(() {
+        logup = Container(color: Colors.black, width: 200,);
+      });
+    }
+
     return Scaffold(
       drawer: Drawer(
       elevation: 16.0,
@@ -101,7 +133,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
               leading: Icon( Icons.favorite,size: 20),
               title: Text('Favourite',style: TextStyle(fontSize: 15)),
               subtitle: Text('Find your liked Recepies!',style: TextStyle(fontSize: 12)),
-              onTap: () {},
+              onTap: (){},
             ),
             ListTile(
               leading: Icon(Icons.low_priority,size: 20),
@@ -161,32 +193,11 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                     elevation: 0.0,
                     actions: <Widget>[
                       ThemeButton(
-                            title: "About", 
-                            onPressed: () {
-                              
-                            }
-                          ),                      
-                       ThemeButton(
-                            title: "Login",
-                            onPressed: () {
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Seq(action: "Login")));
-                            }),
-                      
-                      ThemeButton(
-                            title: "Sign-up",
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(
-                                      builder: (context) => Seq(
-                                            action: "Join us",
-                                          )));
-                            }),
-                      
-                       ThemeButton(
-                              title: "Settings", onPressed: () {}),
+                        title: "About", 
+                        onPressed: () { }
+                      ),
+                      ThemeButton(title: "Settings", onPressed: () {}),
+                      logup,                      
                     ],
                   ),
                   Container(
