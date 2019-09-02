@@ -86,7 +86,7 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
           ThemeButton(
             title: "Back",
             onPressed: (){
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MyHomePage()));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MyHomePage(logs: false)));
             },
           )
         ],
@@ -152,7 +152,7 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
                           if(i == 0 && k == 0){
                             credent(action,_email.text,_password.text).then((onValue){
                             });
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MyHomePage(logs: true)));
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MyHomePage(logs: false)));
                           }
                         }
                       },

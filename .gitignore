@@ -12,6 +12,7 @@ analysis_options.yaml
 # Conventional directory for build outputs
 build/
 .firebase/
+functions/node_modules
 
 # Directory created by dartdoc
 doc/api/
