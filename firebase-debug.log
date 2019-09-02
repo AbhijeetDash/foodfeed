@@ -1,0 +1,23 @@
+[debug] [2019-09-02T09:22:02.571Z] ----------------------------------------------------------------------
+[debug] [2019-09-02T09:22:02.576Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\abhij\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-09-02T09:22:02.577Z] CLI Version:   7.3.0
+[debug] [2019-09-02T09:22:02.577Z] Platform:      win32
+[debug] [2019-09-02T09:22:02.577Z] Node Version:  v10.16.0
+[debug] [2019-09-02T09:22:02.579Z] Time:          Mon Sep 02 2019 14:52:02 GMT+0530 (India Standard Time)
+[debug] [2019-09-02T09:22:02.579Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-09-02T09:22:02.593Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-09-02T09:22:02.595Z] > authorizing via signed-in user
+[debug] [2019-09-02T09:22:02.595Z] [iam] checking project food0taste for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-09-02T09:22:02.599Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/food0taste:testIamPermissions  
+
+[debug] [2019-09-02T09:22:07.251Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-02T09:22:07.255Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/food0taste  
+ 
+[debug] [2019-09-02T09:22:08.593Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'food0taste'...
+[info] 
+[info] i  deploying hosting
+[debug] [2019-09-02T09:22:08.600Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/food0taste/versions  
+
