@@ -1,5 +1,6 @@
 import 'package:flutter_web/material.dart';
 import 'package:food_feed/main.dart';
+import 'package:food_feed/src/info.dart';
 import 'package:food_feed/utils/functions.dart';
 import 'package:food_feed/utils/widgets.dart';
 
@@ -150,9 +151,17 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
                           int i =validate(_email.text,"email");
                           int k = validate(_password.text,"password");
                           if(i == 0 && k == 0){
-                            credent(action,_email.text,_password.text).then((onValue){
-                            });
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MyHomePage(logs: false)));
+                            if(action == "Login"){
+                              login(_email.text,_password.text).then((onValue){
+                              
+                              });
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MyHomePage(logs: true)));
+                            } else if(action == "Join us"){
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> InfoGetter(
+                                email: _email.text,
+                                password : _password.text
+                              )));
+                            }
                           }
                         }
                       },

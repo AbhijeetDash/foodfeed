@@ -146,7 +146,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
               title: Text('New Recepie',style: TextStyle(fontSize: 15)),
               subtitle: Text('Got new ideas? How about writing!',style: TextStyle(fontSize: 12)),
               onTap: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Editor()));               
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Editor()));               
               },
             ),
             Padding(
@@ -219,7 +219,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                                       "https://images.pexels.com/photos/1633578/pexels-photo-1633578.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                                   topic: "Bigger Burgers",
                                   onPressed: (){
-                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Reader()));               
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Reader()));               
                                   },
                                 ),
                                 TopThumb(
@@ -227,7 +227,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                                       "https://images.pexels.com/photos/913136/pexels-photo-913136.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                                   topic: "Ice-Creams",
                                   onPressed: (){
-                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Reader()));               
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Reader()));               
                                   },
                                 ),
                                 TopThumb(
@@ -235,7 +235,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                                       "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                                   topic: "Breakfast Time",
                                   onPressed: (){
-                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Reader()));               
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Reader()));               
                                   },
                                 ),
                                 TopThumb(
@@ -243,7 +243,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                                       "https://images.pexels.com/photos/374757/pexels-photo-374757.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                                   topic: "Natural Coffee",
                                   onPressed: (){
-                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Reader()));               
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Reader()));               
                                   },
                                 ),
                               ],

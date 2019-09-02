@@ -196,7 +196,7 @@ class MyListItem extends StatelessWidget {
         padding: EdgeInsets.all(10),
           child: FlatButton(
             onPressed: (){
-               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Reader()));
+               Navigator.of(context).push(MaterialPageRoute(builder: (context) => Reader()));
             },
             child: Stack(
               children: <Widget>[

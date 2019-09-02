@@ -21,7 +21,7 @@ class _ReaderState extends State<Reader> {
           ThemeButton(
             title: "Back",
             onPressed: (){
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MyHomePage()));
+              Navigator.of(context).pop(true);
             },
           ),
         ],
