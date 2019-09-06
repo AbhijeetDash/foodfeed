@@ -155,7 +155,7 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
                               login(_email.text,_password.text).then((onValue){
                               
                               });
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MyHomePage(logs: true)));
+                              //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MyHomePage(logs: true)));
                             } else if(action == "Join us"){
                               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> InfoGetter(
                                 email: _email.text,

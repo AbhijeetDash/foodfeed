@@ -27,12 +27,13 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title, @required this.logs}) : super(key: key);
+  MyHomePage({Key key, this.title, @required this.logs, @required this.email, @required this.name, @required this.pic}) : super(key: key);
   final String title;
   final bool logs;
+  final String name, email, pic;
   @override
   State<StatefulWidget> createState() {
-    return MyPageState(logs: this.logs);
+    return MyPageState(logs: this.logs, name: this.name, email: this.email, pic: this.pic);
   }
 }
 
@@ -41,9 +42,10 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
   AnimationController controller;
   Animation animation; 
   bool searching = false;
+  final String name, email, pic;
 
   final bool logs;
-  MyPageState({@required this.logs});
+  MyPageState({@required this.logs, @required this.email, @required this.name, @required this.pic});
 
   @override
   void initState() {
@@ -99,7 +101,26 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
       });
     } else if(logs == true){
       setState(() {
-        logup = Container(color: Colors.black, width: 200,);
+        logup = Container( 
+          width: 200,
+          height: 100,
+          alignment: Alignment.center,
+          child: ListTile(
+              leading: Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  image: DecorationImage(
+                    image: NetworkImage(pic),
+                    fit: BoxFit.cover
+                  )
+                ),
+              ),
+              title: Text(name, style: TextStyle(color: Colors.white, fontSize: 14)),
+              subtitle: Text(email, style: TextStyle(color: Colors.white, fontSize: 10)),
+            )
+        );
       });
     }
 

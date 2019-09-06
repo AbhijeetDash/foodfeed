@@ -93,11 +93,18 @@ class _InfoGetterState extends State<InfoGetter> {
                   ThemeButton(
                     title: "Save",
                     onPressed: (){
-                      //Save the Detail to The Database
-                      
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MyHomePage(logs: true)));
+                      create(this.email,this.password,_name.text,_url.text).then((onValue){
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> 
+                          MyHomePage(
+                            logs: true,
+                            email: email,
+                            name: _name.text,
+                            pic: _url.text
+                          )
+                        ));
+                      });
                     },
-                  )
+                  ),
                 ],
               ),
             ),
