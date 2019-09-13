@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter_web/material.dart';
 import 'package:food_feed/main.dart';
+import 'package:food_feed/src/sec.dart';
+import 'package:food_feed/src/setup.dart';
 import 'package:food_feed/utils/functions.dart';
 import 'package:food_feed/utils/widgets.dart';
 
 class InfoGetter extends StatefulWidget {
-  final email;
-  final password;
+  final String email;
+  final String password;
 
   InfoGetter({@required this.email, @required this.password});
 
@@ -17,8 +21,9 @@ class InfoGetter extends StatefulWidget {
 }
 
 class _InfoGetterState extends State<InfoGetter> {
-  final email;
-  final password;
+  final String email;
+  final String password;
+
   TextEditingController _name;
   TextEditingController _url;
 
@@ -28,6 +33,7 @@ class _InfoGetterState extends State<InfoGetter> {
   void initState() {
     _name = TextEditingController();
     _url = TextEditingController();
+    
     super.initState();
   }
 
@@ -94,14 +100,18 @@ class _InfoGetterState extends State<InfoGetter> {
                     title: "Save",
                     onPressed: (){
                       create(this.email,this.password,_name.text,_url.text).then((onValue){
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> 
-                          MyHomePage(
-                            logs: true,
-                            email: email,
-                            name: _name.text,
-                            pic: _url.text
-                          )
-                        ));
+                        if(onValue == true){
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> 
+                            Setup(
+                              logs: true,
+                              email: email,
+                              name: _name.text,
+                              pic: _url.text
+                            )
+                          ));
+                        } else {
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Seq(action: "Join Us", error: true, errMsg: "Email already exists!\nPlease use another email of you",)));
+                        }
                       });
                     },
                   ),

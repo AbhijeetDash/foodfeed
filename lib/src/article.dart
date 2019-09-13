@@ -1,14 +1,33 @@
 import 'dart:html';
 import 'package:flutter_web/material.dart';
-import 'package:food_feed/main.dart';
+import 'package:food_feed/src/publish.dart';
+import 'package:food_feed/utils/functions.dart';
 import 'package:food_feed/utils/widgets.dart';
 
 class Editor extends StatefulWidget {
+  final String email;
+
+  Editor({@required this.email});
+
   @override
-  _EditorState createState() => _EditorState();
+  _EditorState createState() => _EditorState(email: email);
 }
 
 class _EditorState extends State<Editor> {
+
+  TextEditingController _title;
+  TextEditingController _content;
+  final String email;
+
+  _EditorState({@required this.email});
+
+  @override
+  void initState() {
+    _title = TextEditingController();
+    _content = TextEditingController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -27,11 +46,22 @@ class _EditorState extends State<Editor> {
           ),
           ThemeButton(
             title: "Publish",
-            onPressed: (){},
+            onPressed: (){
+              String title = _title.text;
+              String content = _content.text;
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Publish(
+                title: title,
+                content: content,
+                email: email
+              )));
+            },
           ),
           ThemeButton(
             title: "Draft",
-            onPressed: (){},
+            onPressed: (){
+              draft(_title.text, _content.text, this.email);
+              Navigator.of(context).pop(true);
+            },
           ),
         ],
       ),
@@ -43,6 +73,8 @@ class _EditorState extends State<Editor> {
           child: ListView(    
               children: <Widget>[
                 TextField(
+                  controller: _title,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintStyle: TextStyle(color: Colors.grey[400], fontSize: 30),
@@ -52,6 +84,8 @@ class _EditorState extends State<Editor> {
                   maxLength: 40,  
                 ),
                 TextField(
+                  controller: _content,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintStyle: TextStyle(color: Colors.grey[400], fontSize: 20),
