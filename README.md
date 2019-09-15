@@ -1,3 +1,3 @@
 # foodfeed
  Minor project 0.
- Initial Commit
+ Semi Commit
