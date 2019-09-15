@@ -1,7 +1,5 @@
-import 'dart:async';
 
 import 'package:flutter_web/material.dart';
-import 'package:food_feed/main.dart';
 import 'package:food_feed/src/sec.dart';
 import 'package:food_feed/src/setup.dart';
 import 'package:food_feed/utils/functions.dart';

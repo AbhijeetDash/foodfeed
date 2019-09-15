@@ -34,14 +34,14 @@ class _SetupState extends State<Setup> {
   final String email;
   final String name;
   final String pic;
-
-  
+  int j;
 
   _SetupState({@required this.logs, @required this.email, @required this.name, @required this.pic});
 
   @override
   void initState() {
     getCate().then((onValue){
+      j = onValue.body[0].length;
       setState(() {
         a = json.decode(onValue.body)['onValue'];
       });
@@ -103,7 +103,7 @@ class _SetupState extends State<Setup> {
                         child: Scrollbar(
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: 11,
+                            itemCount: j,
                             itemBuilder: (context, i){
                               String title = "Follow";
                               return Padding(

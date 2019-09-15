@@ -12,7 +12,7 @@ import 'package:food_feed/utils/widgets.dart';
 class Seq extends StatefulWidget {
   final String action;
   final bool error;
-  String errMsg;
+  final String errMsg;
 
   Seq({@required this.action, this.error, this.errMsg});
 
@@ -122,7 +122,7 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
           ThemeButton(
             title: "Back",
             onPressed: (){
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MyHomePage(logs: false)));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MyHomePage(logs: false, pic: "",name: "",email: "",)));
             },
           )
         ],

@@ -2,15 +2,16 @@
 .dart_tool/
 .packages
 .vscode/
+.firebase/
 
 # Remove the following pattern if you wish to check in your lock file
 pubspec.lock
 firebase.json
 analysis_options.yaml
+.firebaserc
 
 # Conventional directory for build outputs
 build/
-.firebase/
 
 # Directory created by dartdoc
 doc/api/

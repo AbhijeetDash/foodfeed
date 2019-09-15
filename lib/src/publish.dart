@@ -35,7 +35,9 @@ class _PublishState extends State<Publish> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Publish'),
+      ),
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[

@@ -6,11 +6,13 @@ import 'package:food_feed/utils/widgets.dart';
 
 class Editor extends StatefulWidget {
   final String email;
+  String title;
+  String content;
 
-  Editor({@required this.email});
+  Editor({@required this.email, this.title, this.content});
 
   @override
-  _EditorState createState() => _EditorState(email: email);
+  _EditorState createState() => _EditorState(email: email, title: title, content: content);
 }
 
 class _EditorState extends State<Editor> {
@@ -18,13 +20,19 @@ class _EditorState extends State<Editor> {
   TextEditingController _title;
   TextEditingController _content;
   final String email;
+  String title;
+  String content;
 
-  _EditorState({@required this.email});
+  _EditorState({@required this.email, this.title, this.content});
 
   @override
   void initState() {
     _title = TextEditingController();
     _content = TextEditingController();
+    if(title != "" && content != ""){
+      _title.text = title;
+      _content.text = content;
+    }
     super.initState();
   }
 

@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter_web/material.dart';
 import 'package:flutter_web/widgets.dart';
 import 'package:food_feed/src/article.dart';
+import 'package:food_feed/src/drafts.dart';
 import 'package:food_feed/src/read.dart';
 import 'package:food_feed/src/sec.dart';
+import 'package:food_feed/utils/functions.dart';
 import 'package:food_feed/utils/widgets.dart';
 
 import 'src/sec.dart';
@@ -55,6 +57,21 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
     Timer(Duration(seconds: 1), () {
       controller.forward();
     });
+
+    //get all the Articles.
+    getArticle().then((onValue){
+      setState(() {
+        
+      });
+    });
+
+    //get all follow
+    if(logs){
+      getFollow(email).then((onValue){
+        
+      });
+    }
+
     super.initState();
   }
 
@@ -158,7 +175,12 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
               leading: Icon(Icons.low_priority,size: 20),
               title: Text('Drafts',style: TextStyle(fontSize: 15)),
               subtitle: Text("Complete your reciepies",style: TextStyle(fontSize: 12)),
-              onTap: () {},
+              onTap: () {
+                if(logs){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Drafts(email: email)));               
+
+                }
+              },
             ),
             ListTile(
               leading: Icon(Icons.new_releases,size: 20),

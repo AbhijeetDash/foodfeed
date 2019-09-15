@@ -1,6 +1,4 @@
-
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
 Future<http.Response> login(String email,String pass) async {
@@ -27,11 +25,26 @@ Future<bool> savePrefs(var list, String email) async {
 }
 
 Future<bool> publish(String title, String content, String url, String email) async {
-  http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=publish&title=${title}&content=${content}&url=${url}&email=${email}'));
+  await http.get(Uri.encodeFull('http://localhost:3000/?task=publish&title=${title}&content=${content}&url=${url}&email=${email}'));
   return true;
 }
 
 Future<bool> draft(String title, String content, String email) async {
-  http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=draft&title=${title}&content=${content}&email=${email}'));
+  await http.get(Uri.encodeFull('http://localhost:3000/?task=draft&title=${title}&content=${content}&email=${email}'));
   return true;
+}
+
+Future<http.Response> getDraft(String email) async {
+  http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=getDraft&email=${email}'));
+  return a;
+}
+
+Future<http.Response> getArticle() async {
+  http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=getArticles'));
+  return a;
+}
+
+Future<http.Response> getFollow(String email) async {
+  http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=getFollow&email=${email}'));
+  return a;
 }
