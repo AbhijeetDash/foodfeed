@@ -121,17 +121,17 @@ app.get('/',(req, res)=>{
                         }
                     }
                 ]).toArray((error, onValue)=>{
-                    //onValue = JSON.stringify(onValue);
                     for(var i = 0; i < onValue.length; i++){
                         article.push({
                             title : onValue[i].Title,
                             content : onValue[i].Content,
                             url : onValue[i].Pic,
                             auth : onValue[i].Writter[0].Name,
-                            pic : onValue[i].Writter[0].Profile
+                            pic : onValue[i].Writter[0].Profile,
+                            length : onValue.length
                         })
                     }
-                    res.send({article})
+                    res.send(article)
                 })
             }
 
@@ -140,28 +140,27 @@ app.get('/',(req, res)=>{
                 var items = []
                 var follows = []
                 db.collection('Follow').findOne({Email : email}, (error, onValue)=>{
-                    if(onValue == null){
-                        return console.log("no data found")
-                    }
-                    var list = onValue.Follow
-                    var cate = ''
-                    var a = 0
-                    for(var u = 0; u < list.length; u++){
-                        if(list[u] != ' ' && list[u] != '[' && list[u] != ']' && list[u] != ','){
-                            cate = cate+''+list[u]
-                        } else if(list[u] == ' ' || list[u] == ']'){
-                            items.push(cate)
-                            cate = '';
-                        }
-                    }
-                    for(var i = 0; i < items.length; i++){
-                        db.collection('Categories').findOne({Category : items[i]}, (error, data)=>{
-                            follows.push(data)
-                            console.log(follows)
-                            if(follows.length == items.length){
-                                res.send(follows)
+                    if(onValue != null){
+                        var list = onValue.Follow
+                        var cate = ''
+                        for(var u = 0; u < list.length; u++){
+                            if(list[u] != ' ' && list[u] != '[' && list[u] != ']' && list[u] != ','){
+                                cate = cate+''+list[u]
+                            } else if(list[u] == ' ' || list[u] == ']'){
+                                items.push(cate)
+                                cate = '';
                             }
-                        })
+                        }
+                        for(var i = 0; i < items.length; i++){
+                            db.collection('Categories').findOne({Category : items[i]}, (error, data)=>{
+                                if(data != null){
+                                    follows.push(data)
+                                }
+                                if(follows.length == items.length){
+                                    res.send({follows,len:items.length})
+                                }
+                            })
+                        }
                     }
                 })
             }

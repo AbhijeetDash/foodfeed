@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter_web/material.dart';
 import 'package:flutter_web/widgets.dart';
@@ -44,7 +46,11 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
   AnimationController controller;
   Animation animation; 
   bool searching = false;
+  var articles;
   final String name, email, pic;
+  int artiCount = 0;
+  var follows;
+  int followCount = 0;
 
   bool logs;
   MyPageState({@required this.logs, @required this.email, @required this.name, @required this.pic});
@@ -61,16 +67,18 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
     //get all the Articles.
     getArticle().then((onValue){
       setState(() {
-        
+        articles = json.decode(onValue.body);
+        artiCount = int.parse(articles[0]['length'].toString()) + 2;
       });
     });
 
     //get all follow
-    if(logs){
-      getFollow(email).then((onValue){
-        
+    getFollow(email).then((onValue){
+      setState(() {
+        follows = json.decode(onValue.body)['follows'];
+        followCount = int.parse(json.decode(onValue.body)['len'].toString());
       });
-    }
+    });
 
     super.initState();
   }
@@ -93,7 +101,6 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    int itemCount = 7;
 
     Widget logup;
     if(logs == false){
@@ -178,7 +185,6 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
               onTap: () {
                 if(logs){
                   Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Drafts(email: email)));               
-
                 }
               },
             ),
@@ -258,57 +264,31 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                 Container(
                   color: Colors.deepOrange,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Container(
                         color: Colors.deepOrange,
-                        width: width * 0.700,
+                        width: width * 0.6,
                         height: 100,
                         alignment: Alignment.center,
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10.0),
-                          child: ListView(
+                          child: logs?ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            children: <Widget>[
-                              TopThumb(
-                                url:
-                                    "https://images.pexels.com/photos/1633578/pexels-photo-1633578.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                topic: "Bigger Burgers",
-                                onPressed: (){
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Reader()));               
-                                },
-                              ),
-                              TopThumb(
-                                url:
-                                    "https://images.pexels.com/photos/913136/pexels-photo-913136.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                topic: "Ice-Creams",
-                                onPressed: (){
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Reader()));               
-                                },
-                              ),
-                              TopThumb(
-                                url:
-                                    "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                topic: "Breakfast Time",
-                                onPressed: (){
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Reader()));               
-                                },
-                              ),
-                              TopThumb(
-                                url:
-                                    "https://images.pexels.com/photos/374757/pexels-photo-374757.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                topic: "Natural Coffee",
-                                onPressed: (){
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Reader()));               
-                                },
-                              ),
-                            ],
-                          ),
+                            itemCount: followCount,
+                            itemBuilder: (context, i){
+                              return TopThumb(
+                                url:follows[i]['Pic'].toString(),
+                                topic: follows[i]['Category'].toString(),
+                              );
+                            },
+                          ):Text('Welcome', style: TextStyle(color: Colors.white, fontSize: 20)),
                         ),
                       ),
                       Container(
                         height: 100,
                         color: Colors.deepOrange,
-                        width: width * 0.300,
+                        width: width * 0.4,
                         alignment: Alignment.centerRight,
                         child: Padding(
                           padding: const EdgeInsets.only(right:20.0),
@@ -403,7 +383,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic ", style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.white), textAlign: TextAlign.center,),
+                                      child: Text("We must have a pie. Stress cannot exist in the presence of a pie. Part of the secret of success in life is to eat what you like and let the food fight it out inside.", style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.white), textAlign: TextAlign.center,),
                                     ),
                                   ],
                                 ),
@@ -423,7 +403,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                     children: <Widget>[
                       ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: itemCount,
+                        itemCount: artiCount,
                         itemBuilder: (context,i){
                           if(i == 0){
                             return Container(
@@ -432,7 +412,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                               alignment: Alignment.center,
                               child: Text('Dishes to Explore', style:TextStyle(color: Colors.black, fontSize: 30, fontStyle: FontStyle.italic), textAlign: TextAlign.center,)
                             );
-                          } else if(i == itemCount-1){
+                          } else if(i == artiCount-1){
                             return Container(
                               width: width*0.4,
                               height: height,
@@ -440,7 +420,14 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                               child: Text("You've read everythin?\nTry cooking something!", style:TextStyle(color: Colors.black, fontSize: 30, fontStyle: FontStyle.italic), textAlign: TextAlign.center,)
                             );
                           } else {
-                            return MyListItem();
+                            
+                            return MyListItem(
+                              title: articles[i-1]['title'].toString(),
+                              url : articles[i-1]['url'].toString(),
+                              writter: articles[i-1]['auth'].toString(),
+                              pic : articles[i-1]['pic'].toString(),
+                              content: articles[i-1]['content'].toString(),
+                            );
                           }
                         }
                       ),
@@ -618,6 +605,12 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
             )
           )
         )
+      ),
+      floatingActionButton: ThemeButton(
+        title: "Reload",
+        onPressed: (){
+          initState();
+        },
       ),
     );
   }

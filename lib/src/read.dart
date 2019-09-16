@@ -5,15 +5,19 @@ import 'package:food_feed/utils/widgets.dart';
 
 class Reader extends StatefulWidget {
 
+  //Url is pic behind article;
+  //Pic is writter profile pic;
+
   final String title;
   final String content;
   final String url;
   final String writter;
+  final String pic;
 
-  Reader({@required this.title, @required this.content, @required this.writter, @required this.url});
+  Reader({@required this.title, @required this.content, @required this.writter, @required this.url, @required this.pic});
 
   @override
-  _ReaderState createState() => _ReaderState(title: title, content: content, writter: writter, url: url);
+  _ReaderState createState() => _ReaderState(title: title, content: content, writter: writter, url: url, pic: pic);
 }
 
 class _ReaderState extends State<Reader> {
@@ -21,8 +25,9 @@ class _ReaderState extends State<Reader> {
   final String content;
   final String url;
   final String writter;
+  final String pic;
 
-  _ReaderState({@required this.title, @required this.content, @required this.writter, @required this.url});
+  _ReaderState({@required this.title, @required this.content, @required this.writter, @required this.url, @required this.pic});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +55,7 @@ class _ReaderState extends State<Reader> {
               width: width,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(''),
+                  image: NetworkImage(url),
                   fit: BoxFit.cover
                 )
               ),
@@ -72,14 +77,6 @@ class _ReaderState extends State<Reader> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: width,
-                height: 1,
-                color: Colors.black,
-              )
-            ),
             Container(
               width: width,
               height: 200,
@@ -89,12 +86,12 @@ class _ReaderState extends State<Reader> {
                   Padding(
                     padding: EdgeInsets.all(10),
                     child: Container(
-                      width: 100,
-                      height: 100,
+                      width: 50,
+                      height: 50,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: NetworkImage(url),
+                          image: NetworkImage(pic),
                           fit: BoxFit.cover
                         )
                       ),
@@ -103,15 +100,18 @@ class _ReaderState extends State<Reader> {
                   Padding(
                     padding: EdgeInsets.all(10),
                     child: Container(
+                      height: 100,
+                      alignment: Alignment.center,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text("Written by : "),
+                            child: Text("Written by : ", style: TextStyle(color:Colors.white)),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text(writter, style: TextStyle(fontSize: 20),),
+                            child: Text(writter, style: TextStyle(fontSize: 20, color: Colors.white)),
                           )
                         ],
                       ),

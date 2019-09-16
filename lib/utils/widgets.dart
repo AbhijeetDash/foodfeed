@@ -24,9 +24,8 @@ class ThemeButton extends StatelessWidget {
 class TopThumb extends StatelessWidget {
   final String url;
   final String topic;
-  final GestureTapCallback onPressed;
 
-  TopThumb({@required this.url, @required this.topic, @required this.onPressed});
+  TopThumb({@required this.url, @required this.topic});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,11 +44,6 @@ class TopThumb extends StatelessWidget {
                   color: Colors.grey,
                   shape: BoxShape.circle,
                   image: DecorationImage(image: NetworkImage(url), fit: BoxFit.cover)
-                ),
-                child: RawMaterialButton(
-                  splashColor: Colors.orange,
-                  shape: CircleBorder(),
-                  onPressed: onPressed,
                 ),
               ),
             ),
@@ -186,17 +180,31 @@ class Article extends StatelessWidget {
 }
 
 class MyListItem extends StatelessWidget {
+
+  String title;
+  String content;
+  String writter;
+  String url;
+  String pic;
+
+  MyListItem({@required this.title, @required this.content, @required this.writter, @required this.url, @required this.pic});
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    //double width = MediaQuery.of(context).size.width;
     return AspectRatio(
       aspectRatio: 1/1.5,
         child: Padding(
         padding: EdgeInsets.all(10),
           child: FlatButton(
             onPressed: (){
-               Navigator.of(context).push(MaterialPageRoute(builder: (context) => Reader()));
+               Navigator.of(context).push(MaterialPageRoute(builder: (context) => Reader(
+                 title: title,
+                 content: content,
+                 writter: writter,
+                 url: url,
+                 pic: pic,
+               )));
             },
             child: Stack(
               children: <Widget>[
@@ -223,7 +231,7 @@ class MyListItem extends StatelessWidget {
                           bottomRight: Radius.circular(200),
                         )
                       ),
-                      child: Text("Wizzards", style: TextStyle(fontSize: 30, fontStyle: FontStyle.italic, color: Colors.white),),
+                      child: Text(title, style: TextStyle(fontSize: 30, fontStyle: FontStyle.italic, color: Colors.white),),
                     ),
                     Container(
                       height: ((height-10)*0.20),
@@ -241,7 +249,7 @@ class MyListItem extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(10),
-                        child: Text("Lorem Ipsum is simply dummy\n text of the printing and typesetting industry\n.Lorem Ipsum has been the industry's standard\ndummy text ever since the 1500s", style: TextStyle(color:Colors.white),textAlign: TextAlign.center,)
+                        child: Text(content, style: TextStyle(color:Colors.white),textAlign: TextAlign.center,)
                       )
                     ),
                   ],
