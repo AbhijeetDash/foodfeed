@@ -24,8 +24,8 @@ Future<bool> savePrefs(var list, String email) async {
   return true;
 }
 
-Future<bool> publish(String title, String content, String url, String email) async {
-  await http.get(Uri.encodeFull('http://localhost:3000/?task=publish&title=${title}&content=${content}&url=${url}&email=${email}'));
+Future<bool> publish(String title, String content, String url, String email, var list) async {
+  await http.get(Uri.encodeFull('http://localhost:3000/?task=publish&title=${title}&content=${content}&url=${url}&email=${email}&tags=${list}'));
   return true;
 }
 
@@ -39,8 +39,8 @@ Future<http.Response> getDraft(String email) async {
   return a;
 }
 
-Future<http.Response> getArticle() async {
-  http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=getArticles'));
+Future<http.Response> getArticle(String email) async {
+  http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=getArticles&email=${email}'));
   return a;
 }
 

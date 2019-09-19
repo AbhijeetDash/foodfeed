@@ -21,6 +21,8 @@ class InfoGetter extends StatefulWidget {
 class _InfoGetterState extends State<InfoGetter> {
   final String email;
   final String password;
+  String errorName = "";
+  String errorPic = "";
 
   TextEditingController _name;
   TextEditingController _url;
@@ -33,6 +35,33 @@ class _InfoGetterState extends State<InfoGetter> {
     _url = TextEditingController();
     
     super.initState();
+  }
+
+  int validate(String data, String type){
+    if(type == "Name"){
+      if(data.isNotEmpty){
+        setState(() {
+          errorName = ""; 
+        });
+        return 0;
+      } else {
+        setState(() {
+          errorName = "name can't be empty";
+        });
+      }
+    } else if(type == "Pic"){
+      if(data.isNotEmpty){
+        setState(() {
+          errorName = ""; 
+        });
+        return 0;
+      } else {
+        setState(() {
+         errorPic = "provide a valid ImageUrl"; 
+        });
+      }
+    }
+    return 2;
   }
 
   @override
@@ -82,6 +111,7 @@ class _InfoGetterState extends State<InfoGetter> {
                       focusNode: FocusNode(),
                       decoration: InputDecoration(
                         hintText: "enter your Name",
+                        errorText: errorName
                       ),
                     ),
                   ),
@@ -91,26 +121,38 @@ class _InfoGetterState extends State<InfoGetter> {
                       controller: _url,
                       decoration: InputDecoration(
                         hintText: "Url for Profile Picture",
+                        errorText: errorPic
                       ),
                     ),
                   ),
                   ThemeButton(
                     title: "Save",
                     onPressed: (){
-                      create(this.email,this.password,_name.text,_url.text).then((onValue){
-                        if(onValue == true){
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> 
-                            Setup(
-                              logs: true,
-                              email: email,
-                              name: _name.text,
-                              pic: _url.text
-                            )
-                          ));
-                        } else {
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Seq(action: "Join Us", error: true, errMsg: "Email already exists!\nPlease use another email of you",)));
+                      if(_url != null && _name != null){
+                        int i = validate(_url.text, "Pic");
+                        int k = validate(_name.text, "Name");
+                        if(i == 0 && k == 0){
+                          create(this.email,this.password,_name.text,_url.text).then((onValue){
+                            if(onValue == true){
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> 
+                                Setup(
+                                  logs: true,
+                                  email: email,
+                                  name: _name.text,
+                                  pic: _url.text
+                                )
+                              ));
+                            } else {
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Seq(action: "Join Us", error: true, errMsg: "Email already exists!\nPlease use another email of you",)));
+                            }
+                          });
                         }
-                      });
+                      } else {
+                        setState(() {
+                          errorPic = "this can't be empty";
+                          errorName = "this can't be empty";
+                        });
+                      }
                     },
                   ),
                 ],

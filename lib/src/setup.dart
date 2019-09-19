@@ -41,7 +41,7 @@ class _SetupState extends State<Setup> {
   @override
   void initState() {
     getCate().then((onValue){
-      j = onValue.body[0].length;
+      j = 11;
       setState(() {
         a = json.decode(onValue.body)['onValue'];
       });

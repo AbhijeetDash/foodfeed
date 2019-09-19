@@ -6,8 +6,8 @@ import 'package:food_feed/utils/widgets.dart';
 
 class Editor extends StatefulWidget {
   final String email;
-  String title;
-  String content;
+  final String title;
+  final String content;
 
   Editor({@required this.email, this.title, this.content});
 
@@ -30,8 +30,10 @@ class _EditorState extends State<Editor> {
     _title = TextEditingController();
     _content = TextEditingController();
     if(title != "" && content != ""){
-      _title.text = title;
-      _content.text = content;
+      setState(() {
+        _title.text = title;
+        _content.text = content;
+      });
     }
     super.initState();
   }
@@ -93,7 +95,7 @@ class _EditorState extends State<Editor> {
                 ),
                 TextField(
                   controller: _content,
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintStyle: TextStyle(color: Colors.grey[400], fontSize: 20),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_web/material.dart';
 import 'package:food_feed/src/article.dart';
 import 'package:food_feed/utils/functions.dart';
@@ -18,6 +20,8 @@ class _PublishState extends State<Publish> {
   final String title;
   final String content;
   final String email;
+  int j; var a;
+  var list = [];
 
   TextEditingController _url;
 
@@ -27,6 +31,12 @@ class _PublishState extends State<Publish> {
   @override
   void initState() {
     _url = TextEditingController();
+    getCate().then((onValue){
+      j = 11;
+      setState(() {
+        a = json.decode(onValue.body)['onValue'];
+      });
+    });
     super.initState();
   }
 
@@ -37,64 +47,117 @@ class _PublishState extends State<Publish> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Publish'),
+        elevation: 0.0,
       ),
-      body: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          Container(
-            width: width,
-            height: height,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage('https://images.unsplash.com/photo-1544510807-d0289d40b17c?ixlib=rb-1.2.1&auto=format&fit=crop&w=746&q=80'),
-                fit: BoxFit.cover
-              )
-            ),
-          ),
-          Container(
-            width: width,
-            height: height,
-            color: Color.fromRGBO(0, 0, 0, 0.7),
-          ),
-          Center(
-            child: Container(
-              width: width * 0.5,
-              height: height * 0.5,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30)
+      body: Container(
+        width: width,
+        height: height,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, top: 10),
+                child: Text("Finishing up", style: TextStyle(color: Colors.black, fontSize: 30),),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 100, right: 100, top: 12.0),
-                    child: TextField(
-                      keyboardType: TextInputType.text,
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, top: 10),
+                child: Container(
+                  width: 400,
+                  height: 100,
+                  alignment: Alignment.centerLeft,
+                  child: TextField(
                       controller: _url,
+                      focusNode: FocusNode(),
                       decoration: InputDecoration(
-                        hintText: "enter image URL",
+                        hintText: "enter decoration Image url",
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 100, right: 100, top: 12.0),
-                    child: ThemeButton(
-                      title: "Publish",
-                      onPressed: (){
-                        String a = _url.text;
-                        publish(title, content, a, email);
-                        Navigator.of(context).pop(this);
-                        Navigator.of(context).pop(MaterialPageRoute(builder: (context)=> Editor(email:"")));
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10.0, top: 10.0),
+                child: Text("Select all Appropriate Category", style: TextStyle(color: Colors.black, fontSize: 30),),
+              ),
+              Center(
+                child: Container(
+                  height: 250,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),            
+                  child: Scrollbar(
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: j,
+                      itemBuilder: (context, i){
+                        String title = "Follow";
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 250,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(a[i]['Pic'].toString()),
+                                fit: BoxFit.cover
+                              ),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 250,
+                              decoration: BoxDecoration(color: Color.fromRGBO(0, 0, 0, 0.7),
+                                borderRadius: BorderRadius.circular(30)
+                              ),
+                              child:Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      a[i]['Category'].toString(),
+                                      style: TextStyle(color: Colors.white, fontSize: 20),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ThemeButton(
+                                      title:title,
+                                      onPressed: (){
+                                        setState(() {
+                                          title = "Following"; 
+                                        });
+                                        list.add(a[i]['Category'].toString());
+                                      },
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ),
+                        );
                       },
                     ),
-                  )
-                ],
+                  ),
+                ),
               ),
-            ),
-          )
-        ],
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, top: 10),
+                child: ThemeButton(
+                  title: "Publish",
+                  onPressed: (){
+                    publish(title, content, _url.text, email, list);
+                    Navigator.of(context).pop(true);
+                    Navigator.of(context).pop(MaterialPageRoute(builder: (context)=> Editor()));
+                  },
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

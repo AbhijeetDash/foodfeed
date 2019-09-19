@@ -6,6 +6,7 @@ import 'package:flutter_web/material.dart';
 import 'package:flutter_web/widgets.dart';
 import 'package:food_feed/src/article.dart';
 import 'package:food_feed/src/drafts.dart';
+import 'package:food_feed/src/publish.dart';
 import 'package:food_feed/src/read.dart';
 import 'package:food_feed/src/sec.dart';
 import 'package:food_feed/utils/functions.dart';
@@ -51,6 +52,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
   int artiCount = 0;
   var follows;
   int followCount = 0;
+  var a; int j;
 
   bool logs;
   MyPageState({@required this.logs, @required this.email, @required this.name, @required this.pic});
@@ -65,20 +67,39 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
     });
 
     //get all the Articles.
-    getArticle().then((onValue){
-      setState(() {
-        articles = json.decode(onValue.body);
-        artiCount = int.parse(articles[0]['length'].toString()) + 2;
+    if(logs == true){
+      getArticle(email).then((onValue){
+        setState(() {
+          articles = json.decode(onValue.body)['article'];
+          artiCount = int.parse(json.decode(onValue.body)['length'].toString()) + 2;
+        });
       });
-    });
+    } else {
+      getArticle("").then((onValue){
+        setState(() {
+          articles = json.decode(onValue.body)['article'];
+          artiCount = int.parse(articles[0]['length'].toString()) + 2;
+        });
+      });
+    }
 
     //get all follow
-    getFollow(email).then((onValue){
-      setState(() {
-        follows = json.decode(onValue.body)['follows'];
-        followCount = int.parse(json.decode(onValue.body)['len'].toString());
+
+    if(logs){
+      getFollow(email).then((onValue){
+        setState(() {
+          follows = json.decode(onValue.body)['follows'];
+          followCount = int.parse(json.decode(onValue.body)['len'].toString());
+        });
       });
-    });
+    } else {
+      getCate().then((onValue){
+        j = 11;
+        setState(() {
+          a = json.decode(onValue.body)['onValue'];
+        });
+      });
+    }
 
     super.initState();
   }
@@ -184,7 +205,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
               subtitle: Text("Complete your reciepies",style: TextStyle(fontSize: 12)),
               onTap: () {
                 if(logs){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Drafts(email: email)));               
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Drafts(email: this.email)));               
                 }
               },
             ),
@@ -257,7 +278,9 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                       title: "About", 
                       onPressed: () { }
                     ),
-                    ThemeButton(title: "Settings", onPressed: () {}),
+                    ThemeButton(title: "Settings", onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => Publish(title: "",email: "",content: "",)));
+                    }),
                     logup,                      
                   ],
                 ),
@@ -273,16 +296,19 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                         alignment: Alignment.center,
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10.0),
-                          child: logs?ListView.builder(
+                          child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: followCount,
+                            itemCount: logs?followCount:j,
                             itemBuilder: (context, i){
-                              return TopThumb(
+                              return logs?TopThumb(
                                 url:follows[i]['Pic'].toString(),
                                 topic: follows[i]['Category'].toString(),
+                              ):TopThumb(
+                                url:a[i]['Pic'].toString(),
+                                topic: a[i]['Category'].toString(),
                               );
                             },
-                          ):Text('Welcome', style: TextStyle(color: Colors.white, fontSize: 20)),
+                          )                        
                         ),
                       ),
                       Container(
@@ -420,7 +446,6 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                               child: Text("You've read everythin?\nTry cooking something!", style:TextStyle(color: Colors.black, fontSize: 30, fontStyle: FontStyle.italic), textAlign: TextAlign.center,)
                             );
                           } else {
-                            
                             return MyListItem(
                               title: articles[i-1]['title'].toString(),
                               url : articles[i-1]['url'].toString(),

@@ -212,7 +212,7 @@ class MyListItem extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage(
-                        'https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg'
+                        url
                       ),
                       fit: BoxFit.cover
                     )

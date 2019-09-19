@@ -204,7 +204,6 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
                                       );
                                     } else if(json.decode(onValue.body)['task'].toString() == "No User") {
                                       setState(() {
-                                        print(onValue.body);
                                         this.error = true;
                                         this.errMsg = "User doesn't exists!\nTry Signing up instead.."; 
                                         initState();
