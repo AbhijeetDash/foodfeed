@@ -25,11 +25,12 @@ class _DraftsState extends State<Drafts> {
   void initState() {
     getDraft(email).then((onValue){
       j = onValue.body[0].length;
-      print('I"m a value $j');
+      print(j);
       setState(() {
         a = json.decode(onValue.body)['onValue'];
       });
     });
+
     super.initState();
   }
 
@@ -63,11 +64,12 @@ class _DraftsState extends State<Drafts> {
             child: Container(
               width: width * 0.6,
               height: height * 0.6,
+              alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30)
               ),
-              child: Scrollbar(
+              child: j>1?Scrollbar(
                 child: ListView.builder(
                   itemCount: j,
                   itemBuilder: (context, i){
@@ -103,8 +105,11 @@ class _DraftsState extends State<Drafts> {
                       ),
                     );
                   },
-                ),
               ),
+                ):Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text("NO DRAFTS AVAILABLE", style: TextStyle(fontSize: 30),),
+                ),
             ),
           )
         ],

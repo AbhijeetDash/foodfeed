@@ -249,7 +249,7 @@ class MyListItem extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(10),
-                        child: Text(content, style: TextStyle(color:Colors.white),textAlign: TextAlign.center,)
+                        child: Text(content.substring(0, 100), style: TextStyle(color:Colors.white),textAlign: TextAlign.center,)
                       )
                     ),
                   ],

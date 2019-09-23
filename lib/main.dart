@@ -9,6 +9,7 @@ import 'package:food_feed/src/drafts.dart';
 import 'package:food_feed/src/publish.dart';
 import 'package:food_feed/src/read.dart';
 import 'package:food_feed/src/sec.dart';
+import 'package:food_feed/src/settings.dart';
 import 'package:food_feed/utils/functions.dart';
 import 'package:food_feed/utils/widgets.dart';
 
@@ -146,10 +147,13 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
       });
     } else if(logs == true){
       setState(() {
-        logup = Container( 
+        logup = Container(
           width: 200,
+          alignment: Alignment.topCenter,
           child: ListTile(
+            contentPadding: EdgeInsets.only(left: 10.0),
             leading: Container(
+              alignment: Alignment.topCenter,
               height: 40,
               width: 40,
               decoration: BoxDecoration(
@@ -160,9 +164,12 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                 )
               ),
             ),
-            title: Text(name, style: TextStyle(color: Colors.white, fontSize: 14)),
+            title: Text(name, style: TextStyle(color: Colors.white, fontSize: 16)),
             subtitle: Text("Signed in", style: TextStyle(color: Colors.white, fontSize: 10)),
-          )
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Setting(email: email, url: pic,)));
+            },
+          ),
         );
       });
     }
@@ -275,12 +282,11 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                   elevation: 0.0,
                   actions: <Widget>[
                     ThemeButton(
-                      title: "About", 
-                      onPressed: () { }
+                      title: "Galary", 
+                      onPressed: () {
+
+                      }
                     ),
-                    ThemeButton(title: "Settings", onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => Publish(title: "",email: "",content: "",)));
-                    }),
                     logup,                      
                   ],
                 ),
@@ -430,7 +436,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                       ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: artiCount,
-                        itemBuilder: (context,i){
+                        itemBuilder: (context,i){  
                           if(i == 0){
                             return Container(
                               width: width*0.4,
@@ -475,157 +481,157 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                   ),
                 ),
                 Center(
-          child: Container(
-            height: height-300,
-            width: width,
-            color: Colors.grey[900],
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Container(
-                  width: (width/100)*30,
-                  height: height,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 50.0, left: 30),
-                        child: Text('Food & Taste', style: TextStyle(fontSize: 30, color: Colors.white),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left:30.0),
-                        child: Text("Lorem Ipsum is simply dummy\n text of the printing and typesetting industry\n.Lorem Ipsum has been the industry's standard\ndummy text ever since the 1500s", style: TextStyle(color: Colors.white),),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  width: (width/100)*30,
-                  height: height,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 50.0, left: 30),
-                        child: Text('Other Links', style: TextStyle(fontSize: 20, color: Colors.white, decoration: TextDecoration.underline),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left:30.0, bottom: 10,),
-                        child: Text("About", style: TextStyle(color: Colors.white),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left:30.0, bottom: 10,),
-                        child: Text("Blog", style: TextStyle(color: Colors.white),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left:30.0, bottom: 10,),
-                        child: Text("Gallary", style: TextStyle(color: Colors.white),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left:30.0, bottom: 10,),
-                        child: Text("Privacy Policies", style: TextStyle(color: Colors.white),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left:30.0, bottom: 10,),
-                        child: Text("Terms & Conditions", style: TextStyle(color: Colors.white),),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: (width/100)*30,
-                  height: height,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(top: 30, bottom: 20),
-                        child: Text('Recieve newsletter', style: TextStyle(fontSize: 25, color: Colors.white),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0,right: 100),
-                        child: Container(
-                                width: 300,
-                                child: TextField(
-                                  textAlign: TextAlign.center,
-                                  textInputAction: TextInputAction.done,
-                                  decoration: InputDecoration(
-                                    hintText: "Recieve news-letters",
-                                    hintStyle: TextStyle(),
-                                    fillColor: Colors.grey[200],
-                                    filled: true
-                                  ),
-                                  style: TextStyle(
-                                      fontSize: 14,
+                  child: Container(
+                    height: height-300,
+                    width: width,
+                    color: Colors.grey[900],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Container(
+                          width: (width/100)*30,
+                          height: height,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 50.0, left: 30),
+                                child: Text('Food & Taste', style: TextStyle(fontSize: 30, color: Colors.white),),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:30.0),
+                                child: Text("Lorem Ipsum is simply dummy\n text of the printing and typesetting industry\n.Lorem Ipsum has been the industry's standard\ndummy text ever since the 1500s", style: TextStyle(color: Colors.white),),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: (width/100)*30,
+                          height: height,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 50.0, left: 30),
+                                child: Text('Other Links', style: TextStyle(fontSize: 20, color: Colors.white, decoration: TextDecoration.underline),),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:30.0, bottom: 10,),
+                                child: Text("About", style: TextStyle(color: Colors.white),),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:30.0, bottom: 10,),
+                                child: Text("Blog", style: TextStyle(color: Colors.white),),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:30.0, bottom: 10,),
+                                child: Text("Gallary", style: TextStyle(color: Colors.white),),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:30.0, bottom: 10,),
+                                child: Text("Privacy Policies", style: TextStyle(color: Colors.white),),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:30.0, bottom: 10,),
+                                child: Text("Terms & Conditions", style: TextStyle(color: Colors.white),),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: (width/100)*30,
+                          height: height,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(top: 30, bottom: 20),
+                                child: Text('Recieve newsletter', style: TextStyle(fontSize: 25, color: Colors.white),),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0,right: 100),
+                                child: Container(
+                                        width: 300,
+                                        child: TextField(
+                                          textAlign: TextAlign.center,
+                                          textInputAction: TextInputAction.done,
+                                          decoration: InputDecoration(
+                                            hintText: "Recieve news-letters",
+                                            hintStyle: TextStyle(),
+                                            fillColor: Colors.grey[200],
+                                            filled: true
+                                          ),
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                              ),
+                              ThemeButton(
+                                onPressed: (){},
+                                title: "Subscribe",
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: (width/100)*10,
+                          height: height,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage('https://i.pinimg.com/originals/41/28/2b/41282b58cf85ddaf5d28df96ed91de98.png'),
+                                      fit: BoxFit.contain
+                                    )
                                   ),
                                 ),
                               ),
-                      ),
-                      ThemeButton(
-                        onPressed: (){},
-                        title: "Subscribe",
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  width: (width/100)*10,
-                  height: height,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage('https://i.pinimg.com/originals/41/28/2b/41282b58cf85ddaf5d28df96ed91de98.png'),
-                              fit: BoxFit.contain
-                            )
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage('https://png.pngtree.com/element_our/sm/20180626/sm_5b321ca31d522.png'),
+                                      fit: BoxFit.contain
+                                    )
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage('https://www.freeiconspng.com/uploads/logo-twitter-circle-png-transparent-image-1.png'),
+                                      fit: BoxFit.fill
+                                    )
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage('https://png.pngtree.com/element_our/sm/20180626/sm_5b321ca31d522.png'),
-                              fit: BoxFit.contain
-                            )
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage('https://www.freeiconspng.com/uploads/logo-twitter-circle-png-transparent-image-1.png'),
-                              fit: BoxFit.fill
-                            )
-                          ),
-                        ),
-                      ),
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 )
-              ],
-            ),
-          ),
-        )
-              ],
+                ],
               )
             )
           )
