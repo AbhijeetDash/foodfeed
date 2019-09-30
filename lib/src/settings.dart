@@ -38,10 +38,10 @@ class _SettingState extends State<Setting> {
     });
 
     //get All Articles;
-    getArticle(email).then((onValue){
+    getMyArticles(email).then((onValue){
+      artiCount = int.parse(json.decode(onValue.body)['length'].toString());
       setState(() {
-        articles = json.decode(onValue.body)['article'];
-        artiCount = int.parse(articles[0]['length'].toString());
+        articles = json.decode(onValue.body)['onValue'];
       });
     });
 
@@ -113,9 +113,8 @@ class _SettingState extends State<Setting> {
                           height:  100,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: NetworkImage(
-                                url
-                              )
+                              image: NetworkImage(url),
+                              fit: BoxFit.cover
                             ),
                             borderRadius: BorderRadius.circular(30),
                             color: Colors.grey
@@ -249,21 +248,90 @@ class _SettingState extends State<Setting> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(left : 20.0, top : 10.0),
+                      child: ThemeButton(
+                        title: "Update",
+                        onPressed: (){
+                          updateFollow(email, list);
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left : 20.0, top : 10.0),
                       child: Text('Delete Articles', style: TextStyle(fontSize: 30)),
+                    ),
+                    Center(
+                      child: Container(
+                        height: height * .5,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                        ),            
+                        child: Scrollbar(
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: artiCount,
+                            itemBuilder: (context, i){
+                              String title = "Delete";
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: width * 0.20,
+                                  height: width * 0.20,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    image: DecorationImage(
+                                      image: NetworkImage(articles[i]['Pic']),
+                                      fit: BoxFit.cover
+                                    ),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width: width * 0.20,
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(0, 0, 0, 0.7),
+                                      borderRadius: BorderRadius.circular(30)
+                                    ),
+                                    child:Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            articles[i]['Title'],
+                                            style: TextStyle(color: Colors.white, fontSize: 20),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: ThemeButton(
+                                            title:title,
+                                            onPressed: (){
+                                              setState(() {
+                                               title = "Delete"; 
+                                              });
+                                            },
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
+
             alert
           ],
         ),
-      ),
-      floatingActionButton: ThemeButton(
-        title: "Save",
-        onPressed: (){
-
-        },
       ),
     );
   }

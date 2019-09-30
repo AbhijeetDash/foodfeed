@@ -151,7 +151,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
           width: 200,
           alignment: Alignment.topCenter,
           child: ListTile(
-            contentPadding: EdgeInsets.only(left: 10.0),
+            contentPadding: EdgeInsets.only(left: 40.0),
             leading: Container(
               alignment: Alignment.topCenter,
               height: 40,

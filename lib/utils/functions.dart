@@ -48,3 +48,13 @@ Future<http.Response> getFollow(String email) async {
   http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=getFollow&email=${email}'));
   return a;
 }
+
+Future<http.Response> getMyArticles(String email) async {
+  http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=getMyArticle&email=${email}'));
+  return a;
+}
+
+Future<bool> updateFollow(String email, var list) async {
+  http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=updateFollow&email=${email}&tags=${list}'));
+  return true;
+}
