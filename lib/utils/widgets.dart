@@ -181,13 +181,15 @@ class Article extends StatelessWidget {
 
 class MyListItem extends StatelessWidget {
 
+  String tag;
   String title;
   String content;
   String writter;
   String url;
   String pic;
+  String email;
 
-  MyListItem({@required this.title, @required this.content, @required this.writter, @required this.url, @required this.pic});
+  MyListItem({@required this.email, @required this.tag, @required this.title, @required this.content, @required this.writter, @required this.url, @required this.pic});
 
   @override
   Widget build(BuildContext context) {
@@ -204,6 +206,8 @@ class MyListItem extends StatelessWidget {
                  writter: writter,
                  url: url,
                  pic: pic,
+                 tag: tag,
+                 email: email,
                )));
             },
             child: Stack(

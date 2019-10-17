@@ -69,7 +69,7 @@ class _DraftsState extends State<Drafts> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30)
               ),
-              child: j>1?Scrollbar(
+              child: j>=1?Scrollbar(
                 child: ListView.builder(
                   itemCount: j,
                   itemBuilder: (context, i){
@@ -97,6 +97,7 @@ class _DraftsState extends State<Drafts> {
                                 title: "Edit",
                                 onPressed: (){
                                   Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Editor(email: email.toString(),title: a[i]['Title'].toString(), content: a[i]['Content'].toString(),)));
+                                  Navigator.of(context).pop(this);
                                 },
                               ),
                             )

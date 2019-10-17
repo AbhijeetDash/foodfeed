@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_web/material.dart';
+import 'package:food_feed/main.dart';
 import 'package:food_feed/utils/functions.dart';
 import 'package:food_feed/utils/widgets.dart';
 
@@ -17,19 +18,22 @@ class _SettingState extends State<Setting> {
   final String email;
   final String url;
   _SettingState({@required this.email, @required this.url});
-  Widget alert;
+  Widget alert = Container(width: 0,height: 0);
   bool error = false;
   String errMsg = "";
   int j = 0;
   var a;var list = [];
   var articles;
   int artiCount;
+  bool reLogin = false;
+
+  TextEditingController _urlPic;
+  TextEditingController _name;
 
   @override
   void initState() {
-    
-    //get All user Info;
-    //get All Category;
+    _urlPic = TextEditingController();
+    _name = TextEditingController();
     getCate().then((onValue){
       j = 11;
       setState(() {
@@ -45,8 +49,18 @@ class _SettingState extends State<Setting> {
       });
     });
 
-    if(error == true){
-      error != error;
+    
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
+    if(error){
+      error = false;
+      reLogin = true;
       setState(() {
         alert = Container(
           alignment: Alignment.center,
@@ -59,39 +73,29 @@ class _SettingState extends State<Setting> {
           child: Text(errMsg, style: TextStyle(color: Colors.white, fontSize: 16),textAlign: TextAlign.center,),
         );
       });
-      Timer(Duration(seconds: 2), (){
-        setState(() {
+      Timer(Duration(seconds: 1), (){
+        setState((){
+          error = false;
           alert = Container(
             width: 0,
             height: 0,
           );
         });
       });
-    } else {
-      alert = Container(
-        width: 0,
-        height: 0,
-      );
     }
-    super.initState();
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
         title: Text('Settings'),
       ),
-      body: Container(
-        width: width,
-        height: height,
-        alignment: Alignment.center,
-        child: Stack(
-          children: <Widget>[
-            Container(
+      body: Stack(
+        children: <Widget>[
+          Container(
+            width: width,
+            height: height,
+            alignment: Alignment.center,
+            child: Container(
               width: width*0.6,
               height: height,
               alignment: Alignment.center,
@@ -101,8 +105,8 @@ class _SettingState extends State<Setting> {
                     Padding(
                       padding: EdgeInsets.only(left : 20.0, top : 10.0),
                       child: Container(
-                        alignment: Alignment.center
-                        ,child: Text('Update profile', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold))),
+                        alignment: Alignment.center,
+                        child: Text('Update profile', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold))),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top : 20.0, left : 20.0),
@@ -128,6 +132,7 @@ class _SettingState extends State<Setting> {
                         width: 350,
                         height: 80,
                         child: TextField(
+                          controller: _urlPic,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20)
@@ -143,6 +148,7 @@ class _SettingState extends State<Setting> {
                         width: 350,
                         height: 80,
                         child: TextField(
+                          controller: _name,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20)
@@ -155,25 +161,18 @@ class _SettingState extends State<Setting> {
                     Padding(
                       padding: EdgeInsets.only(left : 20.0, top : 10.0),
                       child: Container(
-                        width: 350,
-                        height: 80,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20)
-                            ),
-                            hintText: "update your Email"
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left : 20.0, top : 10.0),
-                      child: Container(
                         alignment: Alignment.center,
                         child: ThemeButton(
                           title: "Update",
-                          onPressed: (){},
+                          onPressed: (){
+                            updateUser(_urlPic.text, _name.text, email);
+                            setState(() {
+                              error = true;
+                              errMsg = "Profile updated\nPlease login again\nto see changes";
+                              _urlPic.text = "";
+                              _name.text = "";
+                            });
+                          },
                         ),
                       ),
                     ),
@@ -252,6 +251,10 @@ class _SettingState extends State<Setting> {
                         title: "Update",
                         onPressed: (){
                           updateFollow(email, list);
+                          setState(() {
+                            error = true;
+                            errMsg = "Values Updated\nSuccessfully";
+                          });
                         },
                       ),
                     ),
@@ -308,8 +311,14 @@ class _SettingState extends State<Setting> {
                                           child: ThemeButton(
                                             title:title,
                                             onPressed: (){
-                                              setState(() {
-                                               title = "Delete"; 
+                                              deleteArticle(title, email).then((onValue){
+                                                setState(() {
+                                                  error = true;
+                                                  errMsg = "Article Deleted\nSuccessfully"; 
+                                                });
+                                                Timer(Duration(seconds: 2),(){
+                                                  initState();
+                                                });
                                               });
                                             },
                                           ),
@@ -328,10 +337,14 @@ class _SettingState extends State<Setting> {
                 ),
               ),
             ),
+          ),
 
-            alert
-          ],
-        ),
+          Container(
+            alignment: Alignment.center,
+            width: width,
+            height: height,
+            child: alert)
+        ],
       ),
     );
   }

@@ -27,8 +27,8 @@ class _SeqState extends State<Seq> with SingleTickerProviderStateMixin{
   TextEditingController _password;
   String errorEmail = "";
   String errorPass = "";
-  bool error;
-  String errMsg;
+  bool error = false;
+  String errMsg = "";
 
   Widget alert = Container(
     width: 0,

@@ -1,5 +1,6 @@
 import 'package:flutter_web/material.dart';
 import 'package:food_feed/utils/widgets.dart';
+import 'package:food_feed/utils/functions.dart';
 
 
 
@@ -13,11 +14,13 @@ class Reader extends StatefulWidget {
   final String url;
   final String writter;
   final String pic;
+  final String tag;
+  final String email;
 
-  Reader({@required this.title, @required this.content, @required this.writter, @required this.url, @required this.pic});
+  Reader({@required this.email,@required this.title, @required this.content, @required this.writter, @required this.url, @required this.pic, @required this.tag});
 
   @override
-  _ReaderState createState() => _ReaderState(title: title, content: content, writter: writter, url: url, pic: pic);
+  _ReaderState createState() => _ReaderState(email: email,title: title, content: content, writter: writter, url: url, pic: pic, tag: tag);
 }
 
 class _ReaderState extends State<Reader> {
@@ -26,8 +29,19 @@ class _ReaderState extends State<Reader> {
   final String url;
   final String writter;
   final String pic;
+  final String tag;
+  final String email;
+  String cate;
 
-  _ReaderState({@required this.title, @required this.content, @required this.writter, @required this.url, @required this.pic});
+  _ReaderState({@required this.email,@required this.tag, @required this.title, @required this.content, @required this.writter, @required this.url, @required this.pic});
+
+  @override
+  void initState() {
+    String n = tag.replaceAll("[", " ");
+    String m = n.replaceAll("]", " ");
+    cate = m.trim();
+    super.initState();
+  }  
 
   @override
   Widget build(BuildContext context) {
@@ -106,11 +120,11 @@ class _ReaderState extends State<Reader> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.only(left: 8.0, top: 8.0),
                             child: Text("Written by : ", style: TextStyle(color:Colors.white)),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.only(left:8.0, top: 3.0),
                             child: Text(writter, style: TextStyle(fontSize: 20, color: Colors.white)),
                           )
                         ],
@@ -123,11 +137,14 @@ class _ReaderState extends State<Reader> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.thumb_up, color: Colors.white,),
-        backgroundColor: Colors.deepOrange,
-        onPressed: (){},
-      ),
+      floatingActionButton: ThemeButton(
+        title: "Unfollow ${cate}",
+        onPressed: (){
+          unFollow(email, cate).then((onValue){
+            Navigator.of(context).pop(true);
+          });
+        },
+      )
     );
   }
 }
