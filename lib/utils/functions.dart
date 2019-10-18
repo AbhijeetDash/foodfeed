@@ -55,22 +55,22 @@ Future<http.Response> getMyArticles(String email) async {
 }
 
 Future<bool> updateFollow(String email, var list) async {
-  http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=updateFollow&email=${email}&tags=${list}'));
+  await http.get(Uri.encodeFull('http://localhost:3000/?task=updateFollow&email=${email}&tags=${list}'));
   return true;
 }
 
 Future<bool> unFollow(String email, String name) async {
-  http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=unFollow&email=${email}&name=${name}'));
+  await http.get(Uri.encodeFull('http://localhost:3000/?task=unFollow&email=${email}&name=${name}'));
   return true;
 }
 
 Future<bool> updateUser(String urlPic,String name, String email) async {
-  http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=updateUser&name=${name}&pic=${urlPic}&email=${email}'));
+  await http.get(Uri.encodeFull('http://localhost:3000/?task=updateUser&name=${name}&pic=${urlPic}&email=${email}'));
   return true;
 }
 
 Future<bool> deleteArticle(String email, String title) async {
-  http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=deleteArticles&email=${email}&title=${title}'));
+  await http.get(Uri.encodeFull('http://localhost:3000/?task=deleteArticles&email=${email}&title=${title}'));
   return true;
 }
 

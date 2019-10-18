@@ -181,13 +181,13 @@ class Article extends StatelessWidget {
 
 class MyListItem extends StatelessWidget {
 
-  String tag;
-  String title;
-  String content;
-  String writter;
-  String url;
-  String pic;
-  String email;
+  final String tag;
+  final String title;
+  final String content;
+  final String writter;
+  final String url;
+  final String pic;
+  final String email;
 
   MyListItem({@required this.email, @required this.tag, @required this.title, @required this.content, @required this.writter, @required this.url, @required this.pic});
 

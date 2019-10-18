@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_web/material.dart';
-import 'package:food_feed/main.dart';
 import 'package:food_feed/utils/functions.dart';
 import 'package:food_feed/utils/widgets.dart';
 

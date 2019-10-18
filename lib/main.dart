@@ -337,10 +337,22 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                   ),
                 ),
                 ListTile(
-                  leading: Icon( Icons.favorite,size: 20),
-                  title: Text('Favourite',style: TextStyle(fontSize: 15)),
-                  subtitle: Text('Find your liked Recepies!',style: TextStyle(fontSize: 12)),
-                  onTap: (){},
+                  leading: Icon( Icons.settings,size: 20),
+                  title: Text('My Account',style: TextStyle(fontSize: 15)),
+                  subtitle: Text('View and edit your details!',style: TextStyle(fontSize: 12)),
+                  onTap: (){
+                    if(logs){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Setting(email: email,url: pic,)));               
+                    } else {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>
+                        Seq(
+                          action: "Login",
+                          errMsg: "Please login!\nto access account settings..",
+                          error: true,
+                        )
+                      ));
+                    }
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.low_priority,size: 20),
@@ -575,8 +587,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                           ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: artiCount,
-                            itemBuilder: (context,i){
-                              print(articles[0]['title'].toString());  
+                            itemBuilder: (context,i){  
                               if(i == 0){
                                 return Container(
                                   width: width*0.4,

@@ -191,7 +191,7 @@ class _PublishState extends State<Publish> {
                         });
                         Timer(Duration(seconds: 2), (){
                           Navigator.of(context).pop(true);
-                          Navigator.of(context).pop(MaterialPageRoute(builder: (context)=> Editor()));
+                          Navigator.of(context).pop(MaterialPageRoute(builder: (context)=> Editor(email: "",)));
                         });
                       },
                     ),

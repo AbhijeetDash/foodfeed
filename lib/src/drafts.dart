@@ -25,7 +25,6 @@ class _DraftsState extends State<Drafts> {
   void initState() {
     getDraft(email).then((onValue){
       j = onValue.body[0].length;
-      print(j);
       setState(() {
         a = json.decode(onValue.body)['onValue'];
       });
@@ -69,7 +68,7 @@ class _DraftsState extends State<Drafts> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30)
               ),
-              child: j>=1?Scrollbar(
+              child: j>0?Scrollbar(
                 child: ListView.builder(
                   itemCount: j,
                   itemBuilder: (context, i){
@@ -97,7 +96,7 @@ class _DraftsState extends State<Drafts> {
                                 title: "Edit",
                                 onPressed: (){
                                   Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Editor(email: email.toString(),title: a[i]['Title'].toString(), content: a[i]['Content'].toString(),)));
-                                  Navigator.of(context).pop(this);
+                                
                                 },
                               ),
                             )
@@ -106,11 +105,11 @@ class _DraftsState extends State<Drafts> {
                       ),
                     );
                   },
-              ),
-                ):Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text("NO DRAFTS AVAILABLE", style: TextStyle(fontSize: 30),),
                 ),
+              ):Padding(
+                padding: EdgeInsets.all(10),
+                child: Text("NO DRAFTS AVAILABLE", style: TextStyle(fontSize: 30),),
+              ),
             ),
           )
         ],
