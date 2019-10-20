@@ -78,3 +78,8 @@ Future<http.Response> search(String title) async {
   http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=Search&title=${title}'));
   return a;
 }
+
+Future<http.Response> getGalary() async {
+  http.Response a = await http.get(Uri.encodeFull('http://localhost:3000/?task=galary'));
+  return a;
+}

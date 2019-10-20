@@ -46,21 +46,27 @@ class _PublishState extends State<Publish> {
       });
     });
 
-  if(error == true){
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+  if(error){
       error != error;
       setState(() {
         alert = Container(
-          alignment: Alignment.center,
-          width: 300,
-          height: 200,
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(30)
-          ),
-          child: Text(errMsg, style: TextStyle(color: Colors.white, fontSize: 16),textAlign: TextAlign.center,),
-        );
+            alignment: Alignment.center,
+            width: 300,
+            height: 200,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(30)
+            ),
+            child: Text(errMsg, style: TextStyle(color: Colors.white, fontSize: 16),textAlign: TextAlign.center,),
+          );
       });
-      Timer(Duration(seconds: 2), (){
+      Timer(Duration(seconds: 3), (){
         setState(() {
           alert = Container(
             width: 0,
@@ -69,12 +75,6 @@ class _PublishState extends State<Publish> {
         });
       });
     }
-
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -82,14 +82,14 @@ class _PublishState extends State<Publish> {
         title: Text('Publish'),
         elevation: 0.0,
       ),
-      body: Container(
+      body:Stack(
+          children: <Widget>[ 
+      Container(
         width: width,
         height: height,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Stack(
-            children: <Widget>[
-              Column(
+              padding: const EdgeInsets.all(8.0),
+                child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
@@ -165,7 +165,15 @@ class _PublishState extends State<Publish> {
                                             setState(() {
                                               title = "Following"; 
                                             });
-                                            list.add(a[i]['Category'].toString());
+                                            if(list.isEmpty){
+                                              list.add(a[i]['Category'].toString());
+                                            } else {
+                                              setState(() {
+                                               error = true;
+                                               errMsg = "Sorry, but articles can only\nhave one Category"; 
+                                              });
+                                            }
+                                            print(list);
                                           },
                                         ),
                                       )
@@ -198,10 +206,15 @@ class _PublishState extends State<Publish> {
                   ),
                 ],
               ),
-              alert
-            ],
-          ),
+            ),
         ),
+        Container(
+          width: width,
+          height: height,
+          alignment: Alignment.center,
+          child: alert
+        )
+      ],
       ),
     );
   }

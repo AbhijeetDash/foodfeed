@@ -42,8 +42,8 @@ class _SettingState extends State<Setting> {
 
     //get All Articles;
     getMyArticles(email).then((onValue){
-      artiCount = int.parse(json.decode(onValue.body)['length'].toString());
       setState(() {
+        artiCount = int.parse(json.decode(onValue.body)['length'].toString());
         articles = json.decode(onValue.body)['onValue'];
       });
     });
@@ -250,6 +250,7 @@ class _SettingState extends State<Setting> {
                         title: "Update",
                         onPressed: (){
                           updateFollow(email, list);
+                          print(list);
                           setState(() {
                             error = true;
                             errMsg = "Values Updated\nSuccessfully";
@@ -282,7 +283,7 @@ class _SettingState extends State<Setting> {
                                   decoration: BoxDecoration(
                                     color: Colors.black,
                                     image: DecorationImage(
-                                      image: NetworkImage(articles[i]['Pic']),
+                                      image: NetworkImage(articles[i]['Pic'].toString()),
                                       fit: BoxFit.cover
                                     ),
                                     borderRadius: BorderRadius.circular(30),
@@ -301,7 +302,7 @@ class _SettingState extends State<Setting> {
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
-                                            articles[i]['Title'],
+                                            articles[i]['Title'].toString(),
                                             style: TextStyle(color: Colors.white, fontSize: 20),
                                           ),
                                         ),
@@ -310,15 +311,13 @@ class _SettingState extends State<Setting> {
                                           child: ThemeButton(
                                             title:title,
                                             onPressed: (){
-                                              deleteArticle(title, email).then((onValue){
-                                                setState(() {
-                                                  error = true;
-                                                  errMsg = "Article Deleted\nSuccessfully"; 
-                                                });
-                                                Timer(Duration(seconds: 2),(){
-                                                  initState();
-                                                });
+                                              deleteArticle(articles[i]['Title'].toString(), email.toString()).then((onValue){
                                               });
+                                              setState(() {
+                                                error = true;
+                                                errMsg = "Article ${articles[i]['Title'].toString()} Deleted\nSuccessfully"; 
+                                              });
+                                              initState();
                                             },
                                           ),
                                         )

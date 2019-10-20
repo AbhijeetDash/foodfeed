@@ -5,6 +5,7 @@ import 'package:flutter_web/material.dart';
 import 'package:flutter_web/widgets.dart';
 import 'package:food_feed/src/article.dart';
 import 'package:food_feed/src/drafts.dart';
+import 'package:food_feed/src/galary.dart';
 import 'package:food_feed/src/sec.dart';
 import 'package:food_feed/src/settings.dart';
 import 'package:food_feed/utils/functions.dart';
@@ -199,8 +200,6 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                 ),
               ),
             );
-            // artiCount = int.parse(json.decode(onValue.body)['length'].toString()) + 2;
-            // articles = json.decode(onValue.body)['data'];
           });
           Timer(Duration(seconds: 10), (){
             setState(() {
@@ -435,7 +434,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                         ThemeButton(
                           title: "Galary", 
                           onPressed: () {
-
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Galary()));
                           }
                         ),
                         logup,                      
@@ -656,7 +655,7 @@ class MyPageState extends State<MyHomePage> with TickerProviderStateMixin {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left:30.0),
-                                    child: Text("Lorem Ipsum is simply dummy\n text of the printing and typesetting industry\n.Lorem Ipsum has been the industry's standard\ndummy text ever since the 1500s", style: TextStyle(color: Colors.white),),
+                                    child: Text("Lorem Ipsum is simply dummy\ntext of the printing and typesetting industry\nLorem Ipsum has been the industry's standard\ndummy text ever since the 1500s", style: TextStyle(color: Colors.white),),
                                   )
                                 ],
                               ),
