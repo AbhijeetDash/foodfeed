@@ -7,3 +7,14 @@ Its a community for food lovers to share there passion for something delious. By
 . Front-end - Flutter (Hummingbird)<br>
 . Server - NodeJS (Express) <br>
 . Database - MongoDB (atlas edition)<br>
+
+# Additional
+
+. 3000+ Lines of Code<br>
+. 47 commits<br>
+. Images used from pexels.com<br>
+
+# Team 
+
+. Abhijeet Dash<br>
+. Aksh Singh
