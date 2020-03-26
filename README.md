@@ -4,6 +4,6 @@ Its a community for food lovers to share there passion for something delious. By
 
 # Technical Details
 
-. Front-end - Flutter (Hummingbird)
-. Server - NodeJS (Express)
-. Database - MongoDB (atlas edition)
+. Front-end - Flutter (Hummingbird)<br>
+. Server - NodeJS (Express) <br>
+. Database - MongoDB (atlas edition)<br>
