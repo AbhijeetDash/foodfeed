@@ -17,7 +17,3 @@ Its a community for food lovers to share there passion for something delious. By
 . 3000+ Lines of Code<br>
 . 47 commits<br>
 . Images used from pexels.com<br>
-
-# Team 
-
-. Abhijeet Dash<br>
