@@ -21,4 +21,3 @@ Its a community for food lovers to share there passion for something delious. By
 # Team 
 
 . Abhijeet Dash<br>
-. Aksh Singh
