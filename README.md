@@ -5,6 +5,8 @@ Its a community for food lovers to share there passion for something delious. By
 # Preview
 
 <img src="https://i.pinimg.com/originals/f2/0b/be/f20bbedd608531d292d6095c31a0fc41.png" width="800px" height="450px"/>
+<img src="https://i.pinimg.com/originals/0c/a6/34/0ca634017be83dc1296a7e25a1aa7f1d.png" width="800px" height="450px"/>
+<img src="https://i.pinimg.com/originals/f7/d4/1f/f7d41fe4ebf82ff1547b8c4c444fddec.png" width="800px" height="450px"/>
 
 # Technical Details
 
